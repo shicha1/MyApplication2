@@ -2,13 +2,14 @@
 <android.support.constraint.ConstraintLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
     tools:context="com.example.hp.myapplication1.MainActivity"
-    tools:layout_editor_absoluteY="73dp"
-    tools:layout_editor_absoluteX="0dp">
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="73dp">
 
     <!--上面的xmlns就是xlm的命名空间，ns是namespace-->
 
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
 
             android:text="中国科技大学信息收集软件"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="30sp" />
 
         <ImageView
@@ -63,7 +64,7 @@
 
                 android:text="学号："
 
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <EditText
@@ -78,8 +79,9 @@
 
                 android:hint="请输入学号"
                 android:inputType="text"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                tools:textColorHint="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
@@ -100,7 +102,7 @@
                 android:gravity="center_vertical"
 
                 android:text="密码："
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <EditText
@@ -117,8 +119,9 @@
 
                 android:inputType="textPassword"
 
-                android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                tools:textColorHint="#FFFFFF" />
         </LinearLayout>
 
         <RadioGroup
@@ -145,7 +148,7 @@
 
                 android:text="学生"
 
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
 
                 android:textSize="18sp" />
 
@@ -162,7 +165,7 @@
 
                 android:text="管理员"
 
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
 
                 android:textSize="18sp" />
 
@@ -178,11 +181,9 @@
 
                 android:id="@+id/loginbtn"
 
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
 
                 android:layout_height="wrap_content"
-
-                android:background="@drawable/ic_launcher4"
 
 
                 android:text="登录"
@@ -197,13 +198,11 @@
 
                 android:id="@+id/signbtn"
 
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
 
                 android:layout_height="wrap_content"
 
                 android:layout_marginLeft="10dp"
-
-                android:background="@drawable/ic_launcher4"
 
                 android:text="注册"
 
