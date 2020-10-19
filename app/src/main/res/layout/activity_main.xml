@@ -12,269 +12,209 @@
 
     <!--上面的xmlns就是xlm的命名空间，ns是namespace-->
 
-    <TextView
 
-        android:id="@+id/title"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        android:layout_width="wrap_content"
+        <TextView
 
-        android:layout_height="wrap_content"
-
-        android:text="中国科技大学信息平台"
-
-        android:textSize="20sp"
-        android:textColor="#000000"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-
-    <ImageView
-
-        android:id="@+id/icon"
-
-        android:layout_width="104dp"
-
-        android:layout_height="104dp"
-
-        android:background="@drawable/ic_launcher2"
-
-        app:layout_constraintTop_toBottomOf="@id/title"
-
-        android:layout_marginTop="20dp"
-
-        app:layout_constraintLeft_toLeftOf="parent"
-
-        app:layout_constraintRight_toRightOf="parent" />
-
-
-
-    <TextView
-
-        android:id="@+id/user_id"
-
-        android:text="学号："
-
-        android:textColor="#000000"
-
-        android:textSize="18sp"
-
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-
-        app:layout_constraintLeft_toLeftOf="parent"
-
-        android:layout_marginLeft="20dp"
-
-        app:layout_constraintTop_toBottomOf="@id/icon"
-
-        android:layout_marginTop="20dp" />
-
-
-
-    <TextView
-
-        android:id="@+id/user_pwd"
-
-        android:text="密码："
-
-        android:textColor="#000000"
-
-        android:textSize="18sp"
-
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-
-        app:layout_constraintLeft_toLeftOf="parent"
-
-        android:layout_marginLeft="20dp"
-
-        app:layout_constraintTop_toBottomOf="@id/user_id"
-
-        android:layout_marginTop="20dp"/>
-
-
-
-    <EditText
-
-        android:id="@+id/text_userid"
-
-        android:hint="请输入学号"
-
-        android:textColor="#000000"
-
-        android:textSize="18sp"
-
-        android:paddingTop="0dp"
-
-        android:digits="0123456789"
-
-        android:layout_width="fill_parent"
-
-        android:layout_height="wrap_content"
-
-        app:layout_constraintTop_toTopOf="@id/user_id"
-
-        app:layout_constraintLeft_toRightOf="@+id/user_id"
-
-        app:layout_constraintRight_toRightOf="parent"
-
-        android:layout_marginRight="20dp"/>
-
-
-
-    <EditText
-
-        android:id="@+id/text_userpwd"
-
-        android:hint="请输入密码"
-
-        android:textColor="#000000"
-
-        android:textSize="18sp"
-
-        android:paddingTop="0dp"
-
-        android:layout_width="fill_parent"
-
-        android:layout_height="wrap_content"
-
-        app:layout_constraintTop_toTopOf="@id/user_pwd"
-
-        app:layout_constraintLeft_toRightOf="@+id/user_pwd"
-
-        app:layout_constraintRight_toRightOf="parent"
-
-        android:layout_marginRight="20dp" />
-
-
-
-    <RadioGroup
-
-        android:id="@+id/radioButton"
-
-        android:orientation="horizontal"
-
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-
-        app:layout_constraintLeft_toLeftOf="parent"
-
-        app:layout_constraintRight_toRightOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@id/user_pwd"
-
-        android:layout_marginTop="30dp">
-
-
-
-        <RadioButton
-
-            android:id="@+id/radioButton1"
-
-            android:text="学生"
-
-            android:textColor="#000000"
-
-            android:textSize="18sp"
-
-            android:checked="true"
-
-            android:layout_width="wrap_content"
-
-            android:layout_height="wrap_content"/>
-
-
-
-        <RadioButton
-
-            android:id="@+id/radioButton2"
-
-            android:text="教职工"
-
-            android:textColor="#000000"
-
-            android:textSize="18sp"
+            android:id="@+id/title"
 
             android:layout_width="wrap_content"
 
             android:layout_height="wrap_content"
 
-            android:layout_marginLeft="10dp"/>
+            android:text="中国科技大学信息收集软件"
+            android:textColor="#000000"
+            android:textSize="30sp" />
 
-    </RadioGroup>
+        <ImageView
+
+            android:id="@+id/icon"
+
+            android:layout_width="120dp"
+
+            android:layout_height="120dp"
+
+            android:layout_marginTop="20dp"
+
+            android:background="@drawable/ic_launcher2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:id="@+id/user_id"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+
+                android:layout_marginLeft="50dp"
+
+                android:gravity="center_vertical"
+
+                android:text="学号："
+
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <EditText
+
+                android:id="@+id/text_userid"
+
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent"
+
+                android:layout_marginRight="50dp"
+
+                android:hint="请输入学号"
+                android:inputType="text"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:id="@+id/user_pwd"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+
+                android:layout_marginLeft="50dp"
+
+                android:gravity="center_vertical"
+
+                android:text="密码："
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <EditText
+
+                android:id="@+id/text_userpwd"
+
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent"
+
+                android:layout_marginRight="50dp"
+
+                android:hint="请输入密码"
+
+                android:inputType="textPassword"
+
+                android:textColor="#000000"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <RadioGroup
+
+            android:id="@+id/rGroup"
+
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
 
 
+            <RadioButton
 
-    <View
+                android:id="@+id/stu_rbtn"
 
-        android:id="@+id/button_box"
+                android:layout_width="wrap_content"
 
-        android:layout_height="50dp"
+                android:layout_height="wrap_content"
 
-        android:layout_width="185dp"
+                android:checked="true"
 
-        app:layout_constraintTop_toBottomOf="@id/radioButton"
+                android:text="学生"
 
-        android:layout_marginTop="20dp"
+                android:textColor="#000000"
 
-        app:layout_constraintLeft_toLeftOf="parent"
-
-        app:layout_constraintRight_toRightOf="parent"/>
-
+                android:textSize="18sp" />
 
 
-    <Button
+            <RadioButton
 
-        android:id="@+id/button1"
+                android:id="@+id/man_rbtn"
 
-        android:text="登录"
+                android:layout_width="wrap_content"
 
-        android:textColor="@drawable/text_selector"
+                android:layout_height="wrap_content"
 
-        android:background="@drawable/ic_launcher4"
+                android:layout_marginLeft="10dp"
 
+                android:text="管理员"
 
+                android:textColor="#000000"
 
-        android:textSize="18sp"
+                android:textSize="18sp" />
 
-        android:layout_width="wrap_content"
+        </RadioGroup>
 
-        android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
-        app:layout_constraintLeft_toLeftOf="@id/button_box"
+            <Button
 
-        app:layout_constraintTop_toTopOf="@id/button_box" />
+                android:id="@+id/loginbtn"
 
+                android:layout_width="wrap_content"
 
+                android:layout_height="wrap_content"
 
-    <Button
-
-        android:id="@+id/button"
-
-        android:text="注册"
-
-        android:textColor="@drawable/text_selector"
-
-        android:background="@drawable/ic_launcher4"
-
-        android:textSize="18sp"
-
-        android:layout_width="wrap_content"
-
-        android:layout_height="wrap_content"
-
-        app:layout_constraintLeft_toRightOf="@id/button1"
-
-        android:layout_marginLeft="10dp"
-
-        app:layout_constraintTop_toTopOf="@id/button_box"/>
+                android:background="@drawable/ic_launcher4"
 
 
+                android:text="登录"
 
+                android:textColor="@color/text_selector"
+
+                android:textSize="18sp"
+
+                />
+
+            <Button
+
+                android:id="@+id/signbtn"
+
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="10dp"
+
+                android:background="@drawable/ic_launcher4"
+
+                android:text="注册"
+
+                android:textColor="@color/text_selector"
+
+                android:textSize="18sp"
+
+                />
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>
