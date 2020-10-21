@@ -2,11 +2,10 @@
 
 buildscript {
     repositories {
-        jcenter()
         maven {
-            url 'https://maven.google.com/'
-            name 'Google'
+            url "http://maven.aliyun.com/nexus/content/groups/public/"
         }
+        jcenter()
         google()
     }
     dependencies {
@@ -19,11 +18,11 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         maven {
-            url 'https://maven.google.com/'
-            name 'Google'
+            url "http://maven.aliyun.com/nexus/content/groups/public/"
         }
+        jcenter()
+        google()
     }
 }
 
