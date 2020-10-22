@@ -5,16 +5,19 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
-public class DnHelper extends SQLiteOpenHelper {
-    private static final String DB_NAME = "databaseName";
-    private static final String TBL_NAME1 = "logUser";
-    private static final String TBL_NAME1_COL1 = "ID";
-    private static final String TBL_NAME1_COL2 = "PWD";
-    private static final String TBL_NAME1_COL3 = "TYPE";
+import java.util.HashMap;
+
+public class DbHelper extends SQLiteOpenHelper {
+    public static final String DB_NAME = "databaseName.db";
+    public static final String TBL_NAME1 = "logUser";
+    public static final String TBL_NAME1_COL1 = "ID";
+    public static final String TBL_NAME1_COL2 = "PWD";
+    public static final String TBL_NAME1_COL3 = "TYPE";
     StringBuilder sql = new StringBuilder();
 
-    DnHelper(Context context){
+    public DbHelper(Context context){
         super(context, DB_NAME, null, 1);
     }
 
@@ -26,16 +29,27 @@ public class DnHelper extends SQLiteOpenHelper {
         sql.delete(0,sql.length());
         sql.append("CREATE TABLE ");
         sql.append(TBL_NAME1);
-        sql.append("(");
+        sql.append(" (");
         sql.append(TBL_NAME1_COL1);
-        sql.append(" CHAR(25) PRIMARY KEY NOT NULL,");
+        sql.append(" CHAR(25) PRIMARY KEY,");
         sql.append(TBL_NAME1_COL2);
-        sql.append(" TEXT NOT NULL,");
+        sql.append(" TEXT,");
         sql.append(TBL_NAME1_COL3);
-        sql.append(" INT NOT NULL)");
-        insert("123","123",1);
-        insert("123","123",2);
+        sql.append(" INTEGER)");
+        Log.i("sql",sql.toString());
         db.execSQL(sql.toString());
+        ContentValues cv = new ContentValues();
+        cv.put(TBL_NAME1_COL1,"123");
+        cv.put(TBL_NAME1_COL2,"123");
+        cv.put(TBL_NAME1_COL3,1);
+        if(db.insert(TBL_NAME1,null,cv)<0)
+            Log.w("数据库初始化失败","初始账户插入失败");
+        cv.clear();
+        cv.put(TBL_NAME1_COL1,"1234");
+        cv.put(TBL_NAME1_COL2,"1234");
+        cv.put(TBL_NAME1_COL3,2);
+        if(db.insert(TBL_NAME1,null,cv)<0)
+            Log.w("数据库初始化失败","初始账户插入失败");
     }
 
     @Override
@@ -51,7 +65,7 @@ public class DnHelper extends SQLiteOpenHelper {
         return db.insert(TBL_NAME1,null,cv)>0;
     }
 
-    public Cursor query(String ID){
+    public HashMap<String,Object> query(String ID){
         SQLiteDatabase db = this.getReadableDatabase();
         sql.delete(0,sql.length());
         sql.append("SELECT * FROM ");
@@ -60,9 +74,14 @@ public class DnHelper extends SQLiteOpenHelper {
         sql.append(TBL_NAME1_COL1);
         sql.append("=?");
         Cursor cur = db.rawQuery(sql.toString(), new String[]{ID});
+        HashMap<String,Object> mapResult = new HashMap<String, Object>();
+        if(cur.moveToFirst()){
+            mapResult.put(TBL_NAME1_COL2,cur.getString(cur.getColumnIndex(TBL_NAME1_COL2)));
+            mapResult.put(TBL_NAME1_COL3,cur.getInt(cur.getColumnIndex(TBL_NAME1_COL3)));
+        }
         if(!cur.isClosed())
             cur.close();
-        return cur;
+        return mapResult;
     }
 
     public Boolean delete(String ID){

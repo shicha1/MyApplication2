@@ -9,16 +9,17 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.hp.myapplication1.db.DbHelper;
+
 import java.util.HashMap;
 
 
 public class MainActivity extends Activity {
 
-    private HashMap<String,String> stuMap = new HashMap<String, String>();
-    private HashMap<String,String> manMap = new HashMap<String, String>();
     private RadioGroup rGroup ;
     private EditText user_id_editT;
     private EditText user_pwd_editT;
+    private DbHelper myDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +32,18 @@ public class MainActivity extends Activity {
         rGroup = findViewById(R.id.rGroup);
         user_id_editT = findViewById(R.id.text_userid);
         user_pwd_editT = findViewById(R.id.text_userpwd);
-        stuMap.put("123","123");
-        manMap.put("123","123");
+        myDbHelper = new DbHelper(this);
     }
 
     private class Login_btn_listener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-            HashMap<String,String> logmap;
+            HashMap<String,Object> rsMap;
+            Integer type;
             if(rGroup.getCheckedRadioButtonId() == R.id.stu_rbtn){
-                logmap = stuMap;
+                type = 1;
             }else {
-                logmap = manMap;
+                type = 2;
             }
             String user_id_str = user_id_editT.getText().toString();
             String user_pwd_str = user_pwd_editT.getText().toString();
@@ -50,24 +51,26 @@ public class MainActivity extends Activity {
                 quickToast("账户密码不能为空");
                 return;
             }
-            if(!logmap.containsKey(user_id_str)){
-                quickToast("账户不存在");
-                return;
+            rsMap = myDbHelper.query(user_id_str);
+            String rsPWD = (String) rsMap.get(DbHelper.TBL_NAME1_COL2);
+            Integer rsType = (Integer) rsMap.get(DbHelper.TBL_NAME1_COL3);
+            if(rsPWD != null && rsType!=null){
+                if(rsPWD.equals(user_pwd_str)&&rsType.equals(type)){
+                    quickToast("登陆成功");
+                    Intent intent = new Intent(MainActivity.this, FragmentActivity.class);
+                    startActivity(intent);
+                    MainActivity.this.finish();
+                    return;
+                }
+                quickToast("密码或权限错误");
             }
-            if(!logmap.get(user_id_str).equals(user_pwd_str)){
-                quickToast("密码错误");
-                return;
-            }
-            quickToast("登陆成功");
-            Intent intent = new Intent(MainActivity.this, FragmentActivity.class);
-            startActivity(intent);
-            MainActivity.this.finish();
         }
     }
 
     private class sign_btn_listener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
+            HashMap<String,Object> rsMap;
             String user_id_str = user_id_editT.getText().toString();
             String user_pwd_str = user_pwd_editT.getText().toString();
             if(user_id_str.isEmpty() || user_pwd_str.isEmpty()){
@@ -75,9 +78,15 @@ public class MainActivity extends Activity {
                 return;
             }
             if(rGroup.getCheckedRadioButtonId() == R.id.stu_rbtn){
-                stuMap.put(user_id_str,user_pwd_str);
+                rsMap = myDbHelper.query(user_id_str);
+                if(rsMap.get(DbHelper.TBL_NAME1_COL2)!=null){
+                    quickToast("账户已存在");
+                }else{
+                    myDbHelper.insert(user_id_str,user_pwd_str,1);
+                    quickToast("学生用户注册成功");
+                }
             }else {
-                manMap.put(user_id_str,user_pwd_str);
+                quickToast("管理员不能直接注册");
             }
         }
     }
