@@ -1,6 +1,7 @@
 package com.example.hp.myapplication1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -58,6 +59,9 @@ public class MainActivity extends Activity {
                 return;
             }
             quickToast("登陆成功");
+            Intent intent = new Intent(MainActivity.this, FragmentActivity.class);
+            startActivity(intent);
+            MainActivity.this.finish();
         }
     }
 
