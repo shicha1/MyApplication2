@@ -25,7 +25,9 @@ public class ImageItem {
 
     public static List<ImageItem> initialExample(){
         List<ImageItem> l = new ArrayList<>();
-        l.add(new ImageItem("aaa",R.drawable.black));
+        for(int i =0; i <100;i++){
+            l.add(new ImageItem("aaa",R.drawable.black));
+        }
         l.add(new ImageItem("bbb",R.drawable.green));
         l.add(new ImageItem("ccc",R.drawable.white));
         l.add(new ImageItem("ddd",R.drawable.yellow));
