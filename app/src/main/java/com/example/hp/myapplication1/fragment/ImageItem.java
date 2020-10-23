@@ -3,7 +3,6 @@ package com.example.hp.myapplication1.fragment;
 import com.example.hp.myapplication1.R;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ImageItem {
