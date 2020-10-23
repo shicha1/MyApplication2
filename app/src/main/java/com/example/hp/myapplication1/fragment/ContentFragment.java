@@ -7,10 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 import com.example.hp.myapplication1.R;
+
 
 public class ContentFragment extends Fragment implements ScreenShotable {
     public static final String CLOSE = "Close";
@@ -56,6 +59,17 @@ public class ContentFragment extends Fragment implements ScreenShotable {
         mImageView.setClickable(true);
         mImageView.setFocusable(true);
         mImageView.setImageResource(res);
+        ListView mListView = rootView.findViewById(R.id.list_content);
+        //list_item usage
+//        String[] strs = new String[] {
+//                "first", "second", "third", "fourth", "fifth"
+//        };
+//        mListView.setAdapter(new ArrayAdapter<String>(this.getActivity(),R.layout.list_item,strs));
+        //list_image_item usage
+        ImageItemAdapter adapter = new ImageItemAdapter(getActivity(),R.layout.list_image_item,ImageItem.initialExample());
+        mListView.setAdapter(adapter);
+
+
         return rootView;
     }
 
@@ -80,5 +94,6 @@ public class ContentFragment extends Fragment implements ScreenShotable {
     public Bitmap getBitmap() {
         return bitmap;
     }
+
 }
 

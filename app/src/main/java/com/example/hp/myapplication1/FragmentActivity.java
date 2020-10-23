@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -137,12 +138,10 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_settings) {
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition) {
@@ -165,7 +164,10 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
         switch (slideMenuItem.getName()) {
             case ContentFragment.CLOSE:
                 return screenShotable;
+//            case ContentFragment.BOOK:
+//                return replaceFragment(screenShotable, position);
             default:
+                Log.i("menuPosition:",((Integer)position).toString());
                 return replaceFragment(screenShotable, position);
         }
     }
