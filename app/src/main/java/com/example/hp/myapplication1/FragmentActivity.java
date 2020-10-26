@@ -14,7 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.Adapter;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,11 @@ import io.codetail.animation.ViewAnimationUtils;
 import yalantis.com.sidemenu.interfaces.Resourceble;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 import yalantis.com.sidemenu.model.SlideMenuItem;
+
+import com.example.hp.myapplication1.MyListAdapter.ImageItem;
+import com.example.hp.myapplication1.MyListAdapter.ImageItemAdapter;
+import com.example.hp.myapplication1.MyListAdapter.UserAdapter;
+import com.example.hp.myapplication1.db.DbHelper;
 import com.example.hp.myapplication1.fragment.ContentFragment;
 import yalantis.com.sidemenu.util.ViewAnimator;
 
@@ -33,6 +40,7 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
     private ViewAnimator viewAnimator;
     private int res = R.drawable.content_music;
     private LinearLayout linearLayout;
+    private int type;
 
 
     @Override
@@ -52,7 +60,7 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
                 drawerLayout.closeDrawers();
             }
         });
-
+        type = getIntent().getIntExtra("type",1);
 
         setActionBar();
         createMenuList();
@@ -74,8 +82,10 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
         list.add(menuItem5);
         SlideMenuItem menuItem6 = new SlideMenuItem(ContentFragment.PARTY, R.drawable.icn_6);
         list.add(menuItem6);
-        SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.MOVIE, R.drawable.icn_7);
-        list.add(menuItem7);
+        if(type == 2){
+            SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.MOVIE, R.drawable.icn_7);
+            list.add(menuItem7);
+        }
     }
 
 
@@ -144,7 +154,7 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
         return super.onOptionsItemSelected(item);
     }
 
-    private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition) {
+    private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition, ListAdapter adapter) {
         this.res = this.res == R.drawable.content_music ? R.drawable.content_films : R.drawable.content_music;
         View view = findViewById(R.id.content_frame);
         int finalRadius = Math.max(view.getWidth(), view.getHeight());
@@ -154,21 +164,26 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
 
         findViewById(R.id.content_overlay).setBackground(new BitmapDrawable(getResources(), screenShotable.getBitmap()));
         animator.start();
-        ContentFragment contentFragment = ContentFragment.newInstance(this.res);
+        ContentFragment contentFragment = ContentFragment.newInstance(this.res, adapter);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();
         return contentFragment;
     }
 
     @Override
     public ScreenShotable onSwitch(Resourceble slideMenuItem, ScreenShotable screenShotable, int position) {
+        ListAdapter myAdapter;
+        DbHelper myDbHelper;
         switch (slideMenuItem.getName()) {
             case ContentFragment.CLOSE:
                 return screenShotable;
-//            case ContentFragment.BOOK:
-//                return replaceFragment(screenShotable, position);
+            case ContentFragment.MOVIE:
+                myDbHelper = new DbHelper(this);
+                myAdapter = new UserAdapter(this,R.layout.list_user_all, myDbHelper.queryALL());
+                return replaceFragment(screenShotable, position,myAdapter);
             default:
                 Log.i("menuPosition:",((Integer)position).toString());
-                return replaceFragment(screenShotable, position);
+                myAdapter = new ImageItemAdapter(this,R.layout.list_image_item, ImageItem.initialExample());
+                return replaceFragment(screenShotable, position, myAdapter);
         }
     }
 

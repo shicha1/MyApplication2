@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "databaseName.db";
@@ -65,7 +66,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return db.insert(TBL_NAME1,null,cv)>0;
     }
 
-    public HashMap<String,Object> query(String ID){
+    public UserPOJO queryUserByID(String ID){
         SQLiteDatabase db = this.getReadableDatabase();
         sql.delete(0,sql.length());
         sql.append("SELECT * FROM ");
@@ -74,14 +75,32 @@ public class DbHelper extends SQLiteOpenHelper {
         sql.append(TBL_NAME1_COL1);
         sql.append("=?");
         Cursor cur = db.rawQuery(sql.toString(), new String[]{ID});
-        HashMap<String,Object> mapResult = new HashMap<String, Object>();
+        UserPOJO userPOJO = new UserPOJO();
         if(cur.moveToFirst()){
-            mapResult.put(TBL_NAME1_COL2,cur.getString(cur.getColumnIndex(TBL_NAME1_COL2)));
-            mapResult.put(TBL_NAME1_COL3,cur.getInt(cur.getColumnIndex(TBL_NAME1_COL3)));
+            userPOJO.setUserID(ID);
+            userPOJO.setPwd(cur.getString(cur.getColumnIndex(TBL_NAME1_COL2)));
+            userPOJO.setUserType(cur.getInt(cur.getColumnIndex(TBL_NAME1_COL3)));
         }
         if(!cur.isClosed())
             cur.close();
-        return mapResult;
+        return userPOJO;
+    }
+
+    public List<UserPOJO> queryALL(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        sql.delete(0,sql.length());
+        sql.append("SELECT * FROM ");
+        sql.append(TBL_NAME1);
+        Cursor cur = db.rawQuery(sql.toString(), null);
+        List<UserPOJO> userPOJOList = new LinkedList<>();
+        while (cur.moveToNext()){
+            UserPOJO userPOJO = new UserPOJO();
+            userPOJO.setUserID(cur.getString(cur.getColumnIndex(TBL_NAME1_COL1)));
+            userPOJO.setPwd(cur.getString(cur.getColumnIndex(TBL_NAME1_COL2)));
+            userPOJO.setUserType(cur.getInt(cur.getColumnIndex(TBL_NAME1_COL3)));
+            userPOJOList.add(userPOJO);
+        }
+        return userPOJOList;
     }
 
     public Boolean delete(String ID){

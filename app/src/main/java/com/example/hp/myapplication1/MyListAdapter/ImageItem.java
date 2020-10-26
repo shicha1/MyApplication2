@@ -1,4 +1,4 @@
-package com.example.hp.myapplication1.fragment;
+package com.example.hp.myapplication1.MyListAdapter;
 
 import com.example.hp.myapplication1.R;
 

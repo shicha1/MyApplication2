@@ -1,4 +1,4 @@
-package com.example.hp.myapplication1.fragment;
+package com.example.hp.myapplication1.MyListAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -23,7 +23,7 @@ public class ImageItemAdapter extends ArrayAdapter<ImageItem> {
     // convertView 参数用于将之前加载好的布局进行缓存
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        ImageItem fruit=getItem(position); //获取当前项的Fruit实例
+        ImageItem item=getItem(position); //获取当前项的Fruit实例
 
         // 加个判断，以免ListView每次滚动时都要重新加载布局，以提高运行效率
         View view;
@@ -35,8 +35,8 @@ public class ImageItemAdapter extends ArrayAdapter<ImageItem> {
 
             // 避免每次调用getView()时都要重新获取控件实例
             viewHolder=new ViewHolder();
-            viewHolder.fruitImage=view.findViewById(R.id.item_image);
-            viewHolder.fruitName=view.findViewById(R.id.item_name);
+            viewHolder.itemImage =view.findViewById(R.id.item_image);
+            viewHolder.itemName =view.findViewById(R.id.item_name);
 
             // 将ViewHolder存储在View中（即将控件的实例存储在其中）
             view.setTag(viewHolder);
@@ -46,14 +46,14 @@ public class ImageItemAdapter extends ArrayAdapter<ImageItem> {
         }
 
         // 获取控件实例，并调用set...方法使其显示出来
-        viewHolder.fruitImage.setImageResource(fruit.getImageId());
-        viewHolder.fruitName.setText(fruit.getName());
+        viewHolder.itemImage.setImageResource(item.getImageId());
+        viewHolder.itemName.setText(item.getName());
         return view;
     }
 
     // 定义一个内部类，用于对控件的实例进行缓存
     class ViewHolder{
-        ImageView fruitImage;
-        TextView fruitName;
+        ImageView itemImage;
+        TextView itemName;
     }
 }

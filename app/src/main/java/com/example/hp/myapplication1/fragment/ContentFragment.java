@@ -2,16 +2,20 @@ package com.example.hp.myapplication1.fragment;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
+
+import com.example.hp.myapplication1.MyListAdapter.ImageItem;
+import com.example.hp.myapplication1.MyListAdapter.ImageItemAdapter;
 import com.example.hp.myapplication1.R;
 
 
@@ -29,6 +33,18 @@ public class ContentFragment extends Fragment implements ScreenShotable {
     protected ImageView mImageView;
     protected int res;
     private Bitmap bitmap;
+    protected ListView mListView;
+    private ListAdapter myAdapter;
+    private final Handler handler = new Handler();
+
+    public static ContentFragment newInstance(int resId, ListAdapter adapter) {
+        ContentFragment contentFragment = new ContentFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(Integer.class.getName(), resId);
+        contentFragment.setArguments(bundle);
+        contentFragment.setMyAdapter(adapter);
+        return contentFragment;
+    }
 
     public static ContentFragment newInstance(int resId) {
         ContentFragment contentFragment = new ContentFragment();
@@ -38,6 +54,9 @@ public class ContentFragment extends Fragment implements ScreenShotable {
         return contentFragment;
     }
 
+    public void setMyAdapter(ListAdapter myAdapter) {
+        this.myAdapter = myAdapter;
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -59,17 +78,9 @@ public class ContentFragment extends Fragment implements ScreenShotable {
         mImageView.setClickable(true);
         mImageView.setFocusable(true);
         mImageView.setImageResource(res);
-        ListView mListView = rootView.findViewById(R.id.list_content);
-        //list_item usage
-//        String[] strs = new String[] {
-//                "first", "second", "third", "fourth", "fifth"
-//        };
-//        mListView.setAdapter(new ArrayAdapter<String>(this.getActivity(),R.layout.list_item,strs));
-        //list_image_item usage
-        ImageItemAdapter adapter = new ImageItemAdapter(getActivity(),R.layout.list_image_item,ImageItem.initialExample());
-        mListView.setAdapter(adapter);
-
-
+        mListView = rootView.findViewById(R.id.list_content);
+        if(myAdapter != null)
+            mListView.setAdapter(myAdapter);
         return rootView;
     }
 
@@ -78,11 +89,16 @@ public class ContentFragment extends Fragment implements ScreenShotable {
         Thread thread = new Thread() {
             @Override
             public void run() {
-                Bitmap bitmap = Bitmap.createBitmap(containerView.getWidth(),
-                        containerView.getHeight(), Bitmap.Config.ARGB_8888);
-                Canvas canvas = new Canvas(bitmap);
-                containerView.draw(canvas);
-                ContentFragment.this.bitmap = bitmap;
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Bitmap bitmap = Bitmap.createBitmap(containerView.getWidth(),
+                                containerView.getHeight(), Bitmap.Config.ARGB_8888);
+                        Canvas canvas = new Canvas(bitmap);
+                        containerView.draw(canvas);
+                        ContentFragment.this.bitmap = bitmap;
+                    }
+                });
             }
         };
 
