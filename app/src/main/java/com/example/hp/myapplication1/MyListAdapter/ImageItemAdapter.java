@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hp.myapplication1.R;
+import com.example.hp.myapplication1.db.ImageItem;
 
 import java.util.List;
 

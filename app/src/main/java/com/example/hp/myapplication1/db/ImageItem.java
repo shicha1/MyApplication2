@@ -1,4 +1,4 @@
-package com.example.hp.myapplication1.MyListAdapter;
+package com.example.hp.myapplication1.db;
 
 import com.example.hp.myapplication1.R;
 

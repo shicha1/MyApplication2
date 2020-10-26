@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
-import android.widget.Adapter;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 
@@ -26,7 +25,7 @@ import yalantis.com.sidemenu.interfaces.Resourceble;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 import yalantis.com.sidemenu.model.SlideMenuItem;
 
-import com.example.hp.myapplication1.MyListAdapter.ImageItem;
+import com.example.hp.myapplication1.db.ImageItem;
 import com.example.hp.myapplication1.MyListAdapter.ImageItemAdapter;
 import com.example.hp.myapplication1.MyListAdapter.UserAdapter;
 import com.example.hp.myapplication1.db.DbHelper;

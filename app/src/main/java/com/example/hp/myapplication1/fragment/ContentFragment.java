@@ -14,8 +14,6 @@ import android.widget.ListView;
 
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
-import com.example.hp.myapplication1.MyListAdapter.ImageItem;
-import com.example.hp.myapplication1.MyListAdapter.ImageItemAdapter;
 import com.example.hp.myapplication1.R;
 
 
