@@ -25,7 +25,6 @@ import yalantis.com.sidemenu.interfaces.Resourceble;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 import yalantis.com.sidemenu.model.SlideMenuItem;
 
-import com.example.hp.myapplication1.db.ImageItem;
 import com.example.hp.myapplication1.MyListAdapter.ImageItemAdapter;
 import com.example.hp.myapplication1.MyListAdapter.UserAdapter;
 import com.example.hp.myapplication1.db.DbHelper;
@@ -71,20 +70,20 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
     private void createMenuList() {
         SlideMenuItem menuItem0 = new SlideMenuItem(ContentFragment.CLOSE, R.drawable.icn_close);
         list.add(menuItem0);
-        SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.BUILDING, R.drawable.icn_1);
+        SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.First, R.drawable.icn_1);
         list.add(menuItem);
-        SlideMenuItem menuItem2 = new SlideMenuItem(ContentFragment.BOOK, R.drawable.icn_2);
+        SlideMenuItem menuItem2 = new SlideMenuItem(ContentFragment.SECOND, R.drawable.icn_2);
         list.add(menuItem2);
-        SlideMenuItem menuItem3 = new SlideMenuItem(ContentFragment.PAINT, R.drawable.icn_3);
+        SlideMenuItem menuItem3 = new SlideMenuItem(ContentFragment.THIRD, R.drawable.icn_3);
         list.add(menuItem3);
-        SlideMenuItem menuItem4 = new SlideMenuItem(ContentFragment.CASE, R.drawable.icn_4);
+        SlideMenuItem menuItem4 = new SlideMenuItem(ContentFragment.FOURTH, R.drawable.icn_4);
         list.add(menuItem4);
-        SlideMenuItem menuItem5 = new SlideMenuItem(ContentFragment.SHOP, R.drawable.icn_5);
+        SlideMenuItem menuItem5 = new SlideMenuItem(ContentFragment.FIFTH, R.drawable.icn_5);
         list.add(menuItem5);
-        SlideMenuItem menuItem6 = new SlideMenuItem(ContentFragment.PARTY, R.drawable.icn_6);
+        SlideMenuItem menuItem6 = new SlideMenuItem(ContentFragment.SIXTH, R.drawable.icn_6);
         list.add(menuItem6);
         if(type == 2){
-            SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.MOVIE, R.drawable.icn_7);
+            SlideMenuItem menuItem7 = new SlideMenuItem(ContentFragment.SEVENTH, R.drawable.icn_7);
             list.add(menuItem7);
         }
     }
@@ -177,7 +176,7 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
         switch (slideMenuItem.getName()) {
             case ContentFragment.CLOSE:
                 return screenShotable;
-            case ContentFragment.MOVIE:
+            case ContentFragment.SEVENTH:
                 myDbHelper = new DbHelper(this);
                 myAdapter = new UserAdapter(this,R.layout.list_user_all, myDbHelper.queryALL());
                 return replaceFragment(screenShotable, position,myAdapter);
