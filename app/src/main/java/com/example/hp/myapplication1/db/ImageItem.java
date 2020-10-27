@@ -1,15 +1,13 @@
 package com.example.hp.myapplication1.db;
-
-import com.example.hp.myapplication1.R;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import android.graphics.drawable.Drawable;
 public class ImageItem {
+    //  private static Object MainActivity;
     private String name;
-    private int imageId;
+    private Drawable imageId;
 
-    public ImageItem(String name,int imageId){
+    public ImageItem(String name,Drawable imageId){
         this.name=name;
         this.imageId=imageId;
     }
@@ -18,19 +16,17 @@ public class ImageItem {
         return name;
     }
 
-    public int getImageId(){
+    public Drawable getImageId(){            //ImageID是图像资源的编号，代表需要展示的是哪张图片
         return  imageId;
     }
 
-    public static List<ImageItem> initialExample(){
-        List<ImageItem> l = new ArrayList<>();
-        for(int i =0; i <100;i++){
-            l.add(new ImageItem("aaa",R.drawable.black));
+    public static List<ImageItem> initInfo(List<String> str,Drawable[] draw){
+        List<ImageItem> str1 = new ArrayList<>();
+
+        for(int i =0; i <str.size();i++){
+            str1.add(new ImageItem(str.get(i),draw[i]));
         }
-        l.add(new ImageItem("bbb",R.drawable.green));
-        l.add(new ImageItem("ccc",R.drawable.white));
-        l.add(new ImageItem("ddd",R.drawable.yellow));
-        l.add(new ImageItem("eee",R.drawable.blue));
-        return l;
+        return str1;
     }
+
 }

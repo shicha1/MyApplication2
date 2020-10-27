@@ -47,7 +47,7 @@ public class ImageItemAdapter extends ArrayAdapter<ImageItem> {
         }
 
         // 获取控件实例，并调用set...方法使其显示出来
-        viewHolder.itemImage.setImageResource(item.getImageId());
+        viewHolder.itemImage.setImageDrawable(item.getImageId());
         viewHolder.itemName.setText(item.getName());
         return view;
     }

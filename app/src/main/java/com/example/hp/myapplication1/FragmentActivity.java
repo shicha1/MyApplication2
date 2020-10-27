@@ -30,6 +30,8 @@ import com.example.hp.myapplication1.MyListAdapter.ImageItemAdapter;
 import com.example.hp.myapplication1.MyListAdapter.UserAdapter;
 import com.example.hp.myapplication1.db.DbHelper;
 import com.example.hp.myapplication1.fragment.ContentFragment;
+import com.example.hp.myapplication1.infocollect.CollectUtil;
+
 import yalantis.com.sidemenu.util.ViewAnimator;
 
 public class FragmentActivity extends AppCompatActivity implements ViewAnimator.ViewAnimatorListener {
@@ -181,7 +183,10 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
                 return replaceFragment(screenShotable, position,myAdapter);
             default:
                 Log.i("menuPosition:",((Integer)position).toString());
-                myAdapter = new ImageItemAdapter(this,R.layout.list_image_item, ImageItem.initialExample());
+
+                 CollectUtil cu = new CollectUtil();
+                 myAdapter = new ImageItemAdapter(this,R.layout.list_image_item, cu.getAppInstalled(this));
+         //       myAdapter = new ImageItemAdapter(this,R.layout.list_image_item, ImageItem.initialExample());
                 return replaceFragment(screenShotable, position, myAdapter);
         }
     }
