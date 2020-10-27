@@ -33,7 +33,6 @@ public class ContentFragment extends Fragment implements ScreenShotable {
     private Bitmap bitmap;
     protected ListView mListView;
     private ListAdapter myAdapter;
-    private final Handler handler = new Handler();
 
     public static ContentFragment newInstance(int resId, ListAdapter adapter) {
         ContentFragment contentFragment = new ContentFragment();
@@ -84,24 +83,11 @@ public class ContentFragment extends Fragment implements ScreenShotable {
 
     @Override
     public void takeScreenShot() {
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Bitmap bitmap = Bitmap.createBitmap(containerView.getWidth(),
-                                containerView.getHeight(), Bitmap.Config.ARGB_8888);
-                        Canvas canvas = new Canvas(bitmap);
-                        containerView.draw(canvas);
-                        ContentFragment.this.bitmap = bitmap;
-                    }
-                });
-            }
-        };
-
-        thread.start();
-
+        Bitmap bitmap = Bitmap.createBitmap(containerView.getWidth(),
+                containerView.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        containerView.draw(canvas);
+        ContentFragment.this.bitmap = bitmap;
     }
 
     @Override

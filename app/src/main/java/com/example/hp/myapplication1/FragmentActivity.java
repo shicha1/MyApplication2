@@ -183,10 +183,8 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
                 return replaceFragment(screenShotable, position,myAdapter);
             default:
                 Log.i("menuPosition:",((Integer)position).toString());
-
-                 CollectUtil cu = new CollectUtil();
-                 myAdapter = new ImageItemAdapter(this,R.layout.list_image_item, cu.getAppInstalled(this));
-         //       myAdapter = new ImageItemAdapter(this,R.layout.list_image_item, ImageItem.initialExample());
+                CollectUtil cu = new CollectUtil(this);
+                myAdapter = new ImageItemAdapter(this,R.layout.list_image_item, cu.getAppInstalled());
                 return replaceFragment(screenShotable, position, myAdapter);
         }
     }
