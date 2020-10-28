@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class DropDownListViewImp {
+public class MyDropDownListView {
     private Activity act;
     private LinkedList<String>   listItems;
     private DropDownListView     listView;
@@ -25,33 +25,33 @@ public class DropDownListViewImp {
     public static final int      MORE_DATA_MAX_COUNT = 3;
     public int                   moreDataCount       = 0;
 
-    public DropDownListViewImp(Activity act, ListView myListView){
+    public MyDropDownListView(Activity act, ListView myListView){
         this.act = act;
         listView = (DropDownListView)myListView;
         listView.setOnDropDownListener(new DropDownListView.OnDropDownListener() {
             @Override
             public void onDropDown() {
-                new DropDownListViewImp.GetDataTask(true).execute();
+                new MyDropDownListView.GetDataTask(true).execute();
             }
         });
         listView.setOnBottomListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                new DropDownListViewImp.GetDataTask(false).execute();
+                new MyDropDownListView.GetDataTask(false).execute();
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ToastUtils.show(DropDownListViewImp.this.act, R.string.drop_down_tip);
+                ToastUtils.show(MyDropDownListView.this.act, R.string.drop_down_tip);
             }
         });
         listView.setShowFooterWhenNoMore(true);
         listItems = new LinkedList<>();
         listItems.addAll(Arrays.asList(mStrings));
-        adapter = new ArrayAdapter<>(DropDownListViewImp.this.act, android.R.layout.simple_list_item_1, listItems);
+        adapter = new ArrayAdapter<>(MyDropDownListView.this.act, android.R.layout.simple_list_item_1, listItems);
         listView.setAdapter(adapter);
     }
 

@@ -12,7 +12,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
-import com.example.hp.myapplication1.Utils.DropDownListViewImp;
+import com.example.hp.myapplication1.Utils.MyDropDownListView;
 import com.example.hp.myapplication1.R;
 
 
@@ -87,13 +87,11 @@ public class ContentFragment extends Fragment implements ScreenShotable {
         mImageView.setImageResource(res);
         if(flag == 1){
             mListView = rootView.findViewById(R.id.list_view);
-            new DropDownListViewImp(this.getActivity(),mListView);
+            new MyDropDownListView(this.getActivity(),mListView);
             return rootView;
         }
-        if(myAdapter != null){
-            mListView = rootView.findViewById(R.id.list_content);
-            mListView.setAdapter(myAdapter);
-        }
+        mListView = rootView.findViewById(R.id.list_content);
+        mListView.setAdapter(myAdapter);
         return rootView;
     }
 
