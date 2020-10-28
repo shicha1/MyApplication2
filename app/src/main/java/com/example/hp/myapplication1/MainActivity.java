@@ -12,15 +12,13 @@ import android.widget.Toast;
 import com.example.hp.myapplication1.db.DbHelper;
 import com.example.hp.myapplication1.db.UserPOJO;
 
-import java.util.HashMap;
-
 
 public class MainActivity extends Activity {
 
     private RadioGroup rGroup ;
-    private EditText user_id_editT;
-    private EditText user_pwd_editT;
-    private DbHelper myDbHelper;
+    private EditText   user_id_editT;
+    private EditText   user_pwd_editT;
+    private DbHelper   myDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

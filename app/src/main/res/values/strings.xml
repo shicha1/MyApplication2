@@ -13,6 +13,5 @@
     <string name="drop_down_list_footer_no_more_text">没有更多了</string>
 
     <string name="drop_down_tip">Pull down to refresh or scroll to bottom to load more</string>
-    <string name="update_at">updated at:&#160;</string>
-    <string name="image_content">image</string>
+    <string name="update_at">上一次更新时间:&#160;</string>
 </resources>

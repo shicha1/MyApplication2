@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.example.hp.myapplication1.MyList.DropDownListView
+        <com.example.hp.myapplication1.Utils.DropDownListView
             android:id="@+id/list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

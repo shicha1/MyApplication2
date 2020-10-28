@@ -25,22 +25,22 @@ import yalantis.com.sidemenu.interfaces.Resourceble;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 import yalantis.com.sidemenu.model.SlideMenuItem;
 
-import com.example.hp.myapplication1.MyList.ImageItemAdapter;
-import com.example.hp.myapplication1.MyList.UserAdapter;
+import com.example.hp.myapplication1.MyAdapter.ImageItemAdapter;
+import com.example.hp.myapplication1.MyAdapter.UserAdapter;
 import com.example.hp.myapplication1.db.DbHelper;
 import com.example.hp.myapplication1.fragment.ContentFragment;
-import com.example.hp.myapplication1.infocollect.CollectUtil;
+import com.example.hp.myapplication1.Utils.CollectUtil;
 
 import yalantis.com.sidemenu.util.ViewAnimator;
 
 public class FragmentActivity extends AppCompatActivity implements ViewAnimator.ViewAnimatorListener {
-    private DrawerLayout drawerLayout;
+    private DrawerLayout          drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    private List<SlideMenuItem> list = new ArrayList<>();
-    private ViewAnimator viewAnimator;
-    private int res = R.drawable.content_music;
-    private LinearLayout linearLayout;
-    private int type;
+    private List<SlideMenuItem>   list = new ArrayList<>();
+    private ViewAnimator          viewAnimator;
+    private int                   res = R.drawable.content_music;
+    private LinearLayout          linearLayout;
+    private int                   type;
 
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.hp.myapplication1.infocollect;
+package com.example.hp.myapplication1.Utils;
 import android.app.Activity;
 
 import java.util.LinkedList;
