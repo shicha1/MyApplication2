@@ -1,4 +1,4 @@
-package com.example.hp.myapplication1.MyListAdapter;
+package com.example.hp.myapplication1.MyList;
 
 import android.content.Context;
 import android.view.LayoutInflater;
