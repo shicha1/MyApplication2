@@ -29,10 +29,10 @@ public class CollectUtil {
         List<PackageInfo> pkgLists = packageManager.getInstalledPackages(0);
         for (PackageInfo packageInfo : pkgLists) {
             ApplicationInfo applicationInfo = packageInfo.applicationInfo;
-            if ((applicationInfo.flags & applicationInfo.FLAG_SYSTEM) <= 0) {// 这是为了过滤系统应用
+            if ((applicationInfo.flags & applicationInfo.FLAG_SYSTEM) <= 0 || true) {// 这是为了过滤系统应用
                 apps.add(packageInfo);
                 String str=applicationInfo.loadLabel(packageManager).toString();
-                Log.d("pin", "applicationInfo.packageName->" + applicationInfo.packageName);
+//                Log.d("pin", "applicationInfo.packageName->" + applicationInfo.packageName);
             }
         }
         List<Drawable> imageID=new LinkedList<>();

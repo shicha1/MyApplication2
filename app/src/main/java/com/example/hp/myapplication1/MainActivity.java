@@ -1,8 +1,14 @@
 package com.example.hp.myapplication1;
 
 import android.app.Activity;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +51,23 @@ public class MainActivity extends Activity {
         UseTimeDataManager mUseTimeDataManager  = UseTimeDataManager.getInstance(MainActivity.this);
         mUseTimeDataManager .refreshData(0);
         String jsonAppdeTails = "";
+        PackageManager packageManager = getApplicationContext()
+                .getPackageManager();
+        Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        if(list.size() > 0){
+            long ts = System.currentTimeMillis();
+            UsageStatsManager usageStatsManager = (UsageStatsManager) getApplicationContext()
+                    .getSystemService(Context.USAGE_STATS_SERVICE);
+            List<UsageStats> queryUsageStats = usageStatsManager.queryUsageStats(
+                    UsageStatsManager.INTERVAL_BEST, 0, ts);
+            if (queryUsageStats == null || queryUsageStats.isEmpty()) {
+                Intent in = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                startActivity(in);
+
+            }
+        }
         try {
             List<PackageInfo> packageInfos = mUseTimeDataManager.getmPackageInfoListOrderByTime();
             JSONObject jsonObject2 = new JSONObject();
