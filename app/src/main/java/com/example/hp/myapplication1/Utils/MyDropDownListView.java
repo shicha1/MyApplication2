@@ -15,11 +15,11 @@ import java.util.Date;
 import java.util.LinkedList;
 
 public class MyDropDownListView {
-    private Activity act;
-    private LinkedList<String>   listItems;
-    private DropDownListView     listView;
-    private ArrayAdapter<String> adapter;
-    private String[]             mStrings            =
+    private final Activity act;
+    private final LinkedList<String>   listItems;
+    private final DropDownListView     listView;
+    private final ArrayAdapter<String> adapter;
+    private final String[]             mStrings            =
             {"Aaaaaa", "Bbbbbb", "Cccccc", "Dddddd", "Eeeeee", "Ffffff",
                     "Gggggg", "Hhhhhh", "Iiiiii", "Jjjjjj", "Kkkkkk", "Llllll", "Mmmmmm", "Nnnnnn",};
     public static final int      MORE_DATA_MAX_COUNT = 3;
@@ -57,7 +57,7 @@ public class MyDropDownListView {
 
     private class GetDataTask extends AsyncTask<Void, Void, String[]> {
 
-        private boolean isDropDown;
+        private final boolean isDropDown;
 
         public GetDataTask(boolean isDropDown) {
             this.isDropDown = isDropDown;
@@ -66,7 +66,7 @@ public class MyDropDownListView {
         @Override
         protected String[] doInBackground(Void... params) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 ;
             }
@@ -79,8 +79,6 @@ public class MyDropDownListView {
             if (isDropDown) {
                 listItems.addFirst("Added after drop down");
                 adapter.notifyDataSetChanged();
-
-                // should call onDropDownComplete function of DropDownListView at end of drop down complete.
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd HH:mm:ss");
                 listView.onDropDownComplete(act.getString(R.string.update_at) + dateFormat.format(new Date()));
             } else {
@@ -91,8 +89,6 @@ public class MyDropDownListView {
                 if (moreDataCount >= MORE_DATA_MAX_COUNT) {
                     listView.setHasMore(false);
                 }
-
-                // should call onBottomComplete function of DropDownListView at end of on bottom complete.
                 listView.onBottomComplete();
             }
 
