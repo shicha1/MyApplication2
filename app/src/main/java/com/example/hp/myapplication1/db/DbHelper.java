@@ -7,8 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "databaseName.db";
@@ -86,21 +88,27 @@ public class DbHelper extends SQLiteOpenHelper {
         return userPOJO;
     }
 
-    public List<UserPOJO> queryALL(){
+    public List<Map<String,Object>> queryALL(){
         SQLiteDatabase db = this.getReadableDatabase();
         sql.delete(0,sql.length());
         sql.append("SELECT * FROM ");
         sql.append(TBL_NAME1);
         Cursor cur = db.rawQuery(sql.toString(), null);
-        List<UserPOJO> userPOJOList = new LinkedList<>();
+        List<Map<String,Object>> mapList = new LinkedList<>();
         while (cur.moveToNext()){
-            UserPOJO userPOJO = new UserPOJO();
-            userPOJO.setUserID(cur.getString(cur.getColumnIndex(TBL_NAME1_COL1)));
-            userPOJO.setPwd(cur.getString(cur.getColumnIndex(TBL_NAME1_COL2)));
-            userPOJO.setUserType(cur.getInt(cur.getColumnIndex(TBL_NAME1_COL3)));
-            userPOJOList.add(userPOJO);
+            Map<String,Object> map = new HashMap<>();
+            map.put(TBL_NAME1_COL1,cur.getString(cur.getColumnIndex(TBL_NAME1_COL1)));
+            map.put(TBL_NAME1_COL2,cur.getString(cur.getColumnIndex(TBL_NAME1_COL2)));
+            map.put(TBL_NAME1_COL3,cur.getString(cur.getColumnIndex(TBL_NAME1_COL3)));
+            mapList.add(map);
         }
-        return userPOJOList;
+        if(!cur.isClosed())
+            cur.close();
+        return mapList;
+    }
+
+    public String[] getTBL1_all_name(){
+        return new String[]{TBL_NAME1_COL1,TBL_NAME1_COL2,TBL_NAME1_COL3};
     }
 
     public Boolean delete(String ID){

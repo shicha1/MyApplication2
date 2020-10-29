@@ -9,23 +9,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Toast;
-
-import com.example.hp.myapplication1.Utils.PackageInfo;
 import com.example.hp.myapplication1.Utils.ToastUtils;
-import com.example.hp.myapplication1.Utils.UseTimeDataManager;
 import com.example.hp.myapplication1.db.DbHelper;
 import com.example.hp.myapplication1.db.UserPOJO;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.List;
 
 
@@ -48,9 +38,7 @@ public class MainActivity extends Activity {
         user_id_editT = findViewById(R.id.text_userid);
         user_pwd_editT = findViewById(R.id.text_userpwd);
         myDbHelper = new DbHelper(this);
-        UseTimeDataManager mUseTimeDataManager  = UseTimeDataManager.getInstance(MainActivity.this);
-        mUseTimeDataManager .refreshData(0);
-        String jsonAppdeTails = "";
+       //check permission
         PackageManager packageManager = getApplicationContext()
                 .getPackageManager();
         Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
@@ -65,33 +53,8 @@ public class MainActivity extends Activity {
             if (queryUsageStats == null || queryUsageStats.isEmpty()) {
                 Intent in = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                 startActivity(in);
-
             }
         }
-        try {
-            List<PackageInfo> packageInfos = mUseTimeDataManager.getmPackageInfoListOrderByTime();
-            JSONObject jsonObject2 = new JSONObject();
-            JSONArray jsonArray = new JSONArray();
-            for (int i = 0; i < packageInfos.size(); i++) {
-                try {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonArray.put(i, jsonObject.accumulate("count", packageInfos.get(i).getmUsedCount()));
-                    jsonArray.put(i, jsonObject.accumulate("name", packageInfos.get(i).getmPackageName()));
-                    jsonArray.put(i, jsonObject.accumulate("time", packageInfos.get(i).getmUsedTime()));
-                    jsonArray.put(i, jsonObject.accumulate("appname", packageInfos.get(i).getmAppName()));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    ;
-                }
-
-            }
-            jsonObject2.put("details", jsonArray);
-            jsonAppdeTails = jsonObject2.toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-            ;
-        }
-        Log.d("info",jsonAppdeTails);
     }
 
     private class Login_btn_listener implements View.OnClickListener{

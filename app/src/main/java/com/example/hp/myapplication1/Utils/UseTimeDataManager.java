@@ -13,6 +13,8 @@ import android.text.format.DateUtils;
 import android.util.Log;
 
 
+import com.example.hp.myapplication1.db.UsagePOJO;
+
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public class UseTimeDataManager {
     private OneTimeDetails mOneTimeDetails;
 
     //主界面数据
-    private ArrayList<PackageInfo> mPackageInfoList = new ArrayList<>();
+    private ArrayList<UsagePOJO> mUsagePOJOList = new ArrayList<>();
 
 
     public UseTimeDataManager(Context context) {
@@ -96,59 +98,59 @@ public class UseTimeDataManager {
     //分类完成，初始化主界面所用到的数据
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void refreshPackageInfoList() {
-        mPackageInfoList.clear();
+        mUsagePOJOList.clear();
         for (int i = 0; i < mStatsList.size(); i++) {
             //屏蔽系统应用
             if (!isSystemApp(mContext,mStatsList.get(i).getPackageName())) {
-                PackageInfo info = new PackageInfo(0, calculateUseTime(mStatsList.get(i).getPackageName()), mStatsList.get(i).getPackageName(), getApplicationNameByPackageName(mContext, mStatsList.get(i).getPackageName()));
-                mPackageInfoList.add(info);
+                UsagePOJO info = new UsagePOJO(0, calculateUseTime(mStatsList.get(i).getPackageName()), mStatsList.get(i).getPackageName(), getApplicationNameByPackageName(mContext, mStatsList.get(i).getPackageName()));
+                mUsagePOJOList.add(info);
             }
         }
 
-        for (int n = 0; n < mPackageInfoList.size(); n++) {
-            String pkg = mPackageInfoList.get(n).getmPackageName();
+        for (int n = 0; n < mUsagePOJOList.size(); n++) {
+            String pkg = mUsagePOJOList.get(n).getmPackageName();
             for (int m = 0; m < mOneTimeDetailList.size(); m++) {
                 if (pkg.equals(mOneTimeDetailList.get(m).getPkgName())) {
-                    mPackageInfoList.get(n).addCount();
+                    mUsagePOJOList.get(n).addCount();
                 }
             }
         }
     }
 
     //按照使用时间的长短进行排序，获取应用使用情况列表
-    public ArrayList<PackageInfo> getmPackageInfoListOrderByTime() {
-        Log.i(TAG, " UseTimeDataManager-getmPackageInfoListOrderByTime()   排序前：mPackageInfoList.size()" + mPackageInfoList.size());
+    public ArrayList<UsagePOJO> getmPackageInfoListOrderByTime() {
+        Log.i(TAG, " UseTimeDataManager-getmPackageInfoListOrderByTime()   排序前：mPackageInfoList.size()" + mUsagePOJOList.size());
 
-        for (int n = 0; n < mPackageInfoList.size(); n++) {
-            for (int m = n + 1; m < mPackageInfoList.size(); m++) {
-                if (mPackageInfoList.get(n).getmUsedTime() < mPackageInfoList.get(m).getmUsedTime()) {
-                    PackageInfo temp = mPackageInfoList.get(n);
-                    mPackageInfoList.set(n, mPackageInfoList.get(m));
-                    mPackageInfoList.set(m, temp);
+        for (int n = 0; n < mUsagePOJOList.size(); n++) {
+            for (int m = n + 1; m < mUsagePOJOList.size(); m++) {
+                if (mUsagePOJOList.get(n).getmUsedTime() < mUsagePOJOList.get(m).getmUsedTime()) {
+                    UsagePOJO temp = mUsagePOJOList.get(n);
+                    mUsagePOJOList.set(n, mUsagePOJOList.get(m));
+                    mUsagePOJOList.set(m, temp);
                 }
             }
         }
 
-        Log.i(TAG, " UseTimeDataManager-getmPackageInfoListOrderByTime()   排序后：mPackageInfoList.size()" + mPackageInfoList.size());
-        return mPackageInfoList;
+        Log.i(TAG, " UseTimeDataManager-getmPackageInfoListOrderByTime()   排序后：mPackageInfoList.size()" + mUsagePOJOList.size());
+        return mUsagePOJOList;
     }
 
     //按照使用次数的多少进行排序，获取应用使用情况列表
-    public ArrayList<PackageInfo> getmPackageInfoListOrderByCount() {
-        Log.i(TAG, " UseTimeDataManager-getmPackageInfoListOrderByCount()   排序前：mPackageInfoList.size()" + mPackageInfoList.size());
+    public ArrayList<UsagePOJO> getmPackageInfoListOrderByCount() {
+        Log.i(TAG, " UseTimeDataManager-getmPackageInfoListOrderByCount()   排序前：mPackageInfoList.size()" + mUsagePOJOList.size());
 
-        for (int n = 0; n < mPackageInfoList.size(); n++) {
-            for (int m = n + 1; m < mPackageInfoList.size(); m++) {
-                if (mPackageInfoList.get(n).getmUsedCount() < mPackageInfoList.get(m).getmUsedCount()) {
-                    PackageInfo temp = mPackageInfoList.get(n);
-                    mPackageInfoList.set(n, mPackageInfoList.get(m));
-                    mPackageInfoList.set(m, temp);
+        for (int n = 0; n < mUsagePOJOList.size(); n++) {
+            for (int m = n + 1; m < mUsagePOJOList.size(); m++) {
+                if (mUsagePOJOList.get(n).getmUsedCount() < mUsagePOJOList.get(m).getmUsedCount()) {
+                    UsagePOJO temp = mUsagePOJOList.get(n);
+                    mUsagePOJOList.set(n, mUsagePOJOList.get(m));
+                    mUsagePOJOList.set(m, temp);
                 }
             }
         }
 
-        Log.i(TAG, " UseTimeDataManager-getmPackageInfoListOrderByCount()   排序后：mPackageInfoList.size()" + mPackageInfoList.size());
-        return mPackageInfoList;
+        Log.i(TAG, " UseTimeDataManager-getmPackageInfoListOrderByCount()   排序后：mPackageInfoList.size()" + mUsagePOJOList.size());
+        return mUsagePOJOList;
     }
 
     /**
@@ -348,18 +350,18 @@ public class UseTimeDataManager {
     // service use
     // =======================================
 
-    public ArrayList<PackageInfo> getPkgInfoListFromEventList() {
-        return mPackageInfoList;
+    public ArrayList<UsagePOJO> getPkgInfoListFromEventList() {
+        return mUsagePOJOList;
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ArrayList<PackageInfo> getPkgInfoListFromUsageList() throws IllegalAccessException {
-        ArrayList<PackageInfo> result = new ArrayList<>();
+    public ArrayList<UsagePOJO> getPkgInfoListFromUsageList() throws IllegalAccessException {
+        ArrayList<UsagePOJO> result = new ArrayList<>();
 
         if (mStatsList != null && mStatsList.size() > 0) {
             for (int i = 0; i < mStatsList.size(); i++) {
 
-                result.add(new PackageInfo(getLaunchCount(mStatsList.get(i)), mStatsList.get(i).getTotalTimeInForeground(), mStatsList.get(i).getPackageName(), getApplicationNameByPackageName(mContext, mStatsList.get(i).getPackageName())));
+                result.add(new UsagePOJO(getLaunchCount(mStatsList.get(i)), mStatsList.get(i).getTotalTimeInForeground(), mStatsList.get(i).getPackageName(), getApplicationNameByPackageName(mContext, mStatsList.get(i).getPackageName())));
 
             }
         }

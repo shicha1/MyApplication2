@@ -17,13 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <ListView
-            android:id="@+id/list_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
         <com.example.hp.myapplication1.Utils.DropDownListView
-            android:id="@+id/list_view"
+            android:id="@+id/list_dropdownview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawSelectorOnTop="false"

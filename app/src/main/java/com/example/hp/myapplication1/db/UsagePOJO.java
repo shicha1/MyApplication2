@@ -1,12 +1,12 @@
-package com.example.hp.myapplication1.Utils;
+package com.example.hp.myapplication1.db;
 
-public class PackageInfo {
+public class UsagePOJO {
     private int mUsedCount;
     private long mUsedTime;
     private String mPackageName;
     private String mAppName;
 
-    public PackageInfo(int mUsedCount, long mUsedTime, String mPackageName, String appName) {
+    public UsagePOJO(int mUsedCount, long mUsedTime, String mPackageName, String appName) {
         this.mUsedCount = mUsedCount;
         this.mUsedTime = mUsedTime;
         this.mPackageName = mPackageName;
@@ -54,7 +54,7 @@ public class PackageInfo {
         //return super.equals(o);
         if (o == null) return false;
         if (this == o) return true;
-        PackageInfo standardDetail = (PackageInfo) o;
+        UsagePOJO standardDetail = (UsagePOJO) o;
         if (standardDetail.getmPackageName().equals(this.mPackageName)) {
             return true;
         } else {

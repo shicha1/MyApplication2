@@ -1,30 +1,28 @@
-package com.example.hp.myapplication1.Utils;
+package com.example.hp.myapplication1.info;
 import android.app.Activity;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.graphics.drawable.Drawable;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
 import java.util.ArrayList;
-import com.example.hp.myapplication1.db.ImageItem;
+import java.util.Map;
+import com.example.hp.myapplication1.R;
 
 
-public class CollectUtil {
+public class AppInstalledInfo {
     private Activity act;
 
-    public CollectUtil(Activity act){
+    public AppInstalledInfo(Activity act){
         this.act = act;
     }
 
-    public List<ImageItem> getAppInstalled(){
+    public List<Map<String,Object>> getAppInstalled(){
 
         List<PackageInfo> apps = new ArrayList<PackageInfo>();
+        List<Map<String,Object>> appList = new LinkedList<>();
         PackageManager packageManager = act.getPackageManager();
         List<PackageInfo> pkgLists = packageManager.getInstalledPackages(0);
         for (PackageInfo packageInfo : pkgLists) {
@@ -35,16 +33,21 @@ public class CollectUtil {
 //                Log.d("pin", "applicationInfo.packageName->" + applicationInfo.packageName);
             }
         }
-        List<Drawable> imageID=new LinkedList<>();
         for(int i =0; i <apps.size();i++){
-            imageID.add(packageManager.getApplicationIcon(apps.get(i).applicationInfo));
+            Map<String,Object> map = new HashMap<>();
+            map.put("imageID",packageManager.getApplicationIcon(apps.get(i).applicationInfo));
+            map.put("info",apps.get(i).applicationInfo.loadLabel(packageManager).toString());
+            appList.add(map);
         }
-        List<String> info1 = new LinkedList<>();
-        for(int i =0; i <apps.size();i++){
-            info1.add(apps.get(i).applicationInfo.loadLabel(packageManager).toString());
-        }
-        return ImageItem.initInfo(info1,imageID);
+        return appList;
     }
 
+    public String[] dataFrom(){
+        return new String[]{"imageID","info"};
+    }
+
+    public int[] dataTo(){
+        return new int[]{R.id.list_item_install_image,R.id.list_item_install_name};
+    }
 
 }

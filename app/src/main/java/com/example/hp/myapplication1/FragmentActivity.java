@@ -9,7 +9,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,11 +24,8 @@ import yalantis.com.sidemenu.interfaces.Resourceble;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 import yalantis.com.sidemenu.model.SlideMenuItem;
 
-import com.example.hp.myapplication1.MyAdapter.ImageItemAdapter;
-import com.example.hp.myapplication1.MyAdapter.UserAdapter;
 import com.example.hp.myapplication1.db.DbHelper;
 import com.example.hp.myapplication1.fragment.ContentFragment;
-import com.example.hp.myapplication1.Utils.CollectUtil;
 
 import yalantis.com.sidemenu.util.ViewAnimator;
 
@@ -70,7 +66,7 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
     private void createMenuList() {
         SlideMenuItem menuItem0 = new SlideMenuItem(ContentFragment.CLOSE, R.drawable.icn_close);
         list.add(menuItem0);
-        SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.First, R.drawable.icn_1);
+        SlideMenuItem menuItem = new SlideMenuItem(ContentFragment.FIRST, R.drawable.icn_1);
         list.add(menuItem);
         SlideMenuItem menuItem2 = new SlideMenuItem(ContentFragment.SECOND, R.drawable.icn_2);
         list.add(menuItem2);
@@ -154,7 +150,7 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
         return super.onOptionsItemSelected(item);
     }
 
-    private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition, ListAdapter adapter) {
+    private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition, String type) {
         this.res = this.res == R.drawable.content_music ? R.drawable.content_films : R.drawable.content_music;
         View view = findViewById(R.id.content_frame);
         int finalRadius = Math.max(view.getWidth(), view.getHeight());
@@ -164,22 +160,7 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
 
         findViewById(R.id.content_overlay).setBackground(new BitmapDrawable(getResources(), screenShotable.getBitmap()));
         animator.start();
-        ContentFragment contentFragment = ContentFragment.newInstance(this.res, adapter);
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();
-        return contentFragment;
-    }
-
-    private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition, int flag) {
-        this.res = this.res == R.drawable.content_music ? R.drawable.content_films : R.drawable.content_music;
-        View view = findViewById(R.id.content_frame);
-        int finalRadius = Math.max(view.getWidth(), view.getHeight());
-        Animator animator = ViewAnimationUtils.createCircularReveal(view, 0, topPosition, 0, finalRadius);
-        animator.setInterpolator(new AccelerateInterpolator());
-        animator.setDuration(ViewAnimator.CIRCULAR_REVEAL_ANIMATION_DURATION);
-
-        findViewById(R.id.content_overlay).setBackground(new BitmapDrawable(getResources(), screenShotable.getBitmap()));
-        animator.start();
-        ContentFragment contentFragment = ContentFragment.newInstance(this.res, flag);
+        ContentFragment contentFragment = ContentFragment.newInstance(this.res,type);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();
         return contentFragment;
     }
@@ -191,17 +172,13 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
         switch (slideMenuItem.getName()) {
             case ContentFragment.CLOSE:
                 return screenShotable;
-            case ContentFragment.First:
-                return replaceFragment(screenShotable, position, 1);
-            case ContentFragment.SEVENTH:
-                myDbHelper = new DbHelper(this);
-                myAdapter = new UserAdapter(this,R.layout.list_user_all, myDbHelper.queryALL());
-                return replaceFragment(screenShotable, position,myAdapter);
+//            case ContentFragment.SEVENTH:
+//                myDbHelper = new DbHelper(this);
+//                myAdapter = new UserAdapter(this,R.layout.list_user_all, myDbHelper.queryALL());
+//                return replaceFragment(screenShotable, position,myAdapter);
             default:
-                Log.i("menuPosition:",((Integer)position).toString());
-                CollectUtil cu = new CollectUtil(this);
-                myAdapter = new ImageItemAdapter(this,R.layout.list_image_item, cu.getAppInstalled());
-                return replaceFragment(screenShotable, position, myAdapter);
+//                Log.i("menuPosition:",((Integer)position).toString());
+                return replaceFragment(screenShotable, position, slideMenuItem.getName());
         }
     }
 

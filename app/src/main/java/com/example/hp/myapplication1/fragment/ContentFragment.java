@@ -1,4 +1,5 @@
 package com.example.hp.myapplication1.fragment;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -8,17 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
-import com.example.hp.myapplication1.Utils.MyDropDownListView;
 import com.example.hp.myapplication1.R;
 
 
 public class ContentFragment extends Fragment implements ScreenShotable {
     public static final String CLOSE = "Close";
-    public static final String First = "Building";
+    public static final String FIRST = "Building";
     public static final String SECOND = "Book";
     public static final String THIRD = "Paint";
     public static final String FOURTH = "Case";
@@ -31,25 +29,19 @@ public class ContentFragment extends Fragment implements ScreenShotable {
     protected int              res;
     private Bitmap             bitmap;
     protected ListView         mListView;
-    private ListAdapter        myAdapter;
 
-    public int                 flag = 0;
+    private String type;
 
-    public static ContentFragment newInstance(int resId, ListAdapter adapter) {
-        ContentFragment contentFragment = new ContentFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(Integer.class.getName(), resId);
-        contentFragment.setArguments(bundle);
-        contentFragment.setMyAdapter(adapter);
-        return contentFragment;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public static ContentFragment newInstance(int resId, int type) {
+    public static ContentFragment newInstance(int resId, String type) {
         ContentFragment contentFragment = new ContentFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(Integer.class.getName(), resId);
         contentFragment.setArguments(bundle);
-        contentFragment.flag = type;
+        contentFragment.setType(type);
         return contentFragment;
     }
 
@@ -59,10 +51,6 @@ public class ContentFragment extends Fragment implements ScreenShotable {
         bundle.putInt(Integer.class.getName(), resId);
         contentFragment.setArguments(bundle);
         return contentFragment;
-    }
-
-    public void setMyAdapter(ListAdapter myAdapter) {
-        this.myAdapter = myAdapter;
     }
 
     @Override
@@ -85,13 +73,11 @@ public class ContentFragment extends Fragment implements ScreenShotable {
         mImageView.setClickable(true);
         mImageView.setFocusable(true);
         mImageView.setImageResource(res);
-        if(flag == 1){
-            mListView = rootView.findViewById(R.id.list_view);
-            new MyDropDownListView(this.getActivity(),mListView);
+        if(type != null){
+            mListView = rootView.findViewById(R.id.list_dropdownview);
+            new MyDropDownListView(this.getActivity(),mListView, type);
             return rootView;
         }
-        mListView = rootView.findViewById(R.id.list_content);
-        mListView.setAdapter(myAdapter);
         return rootView;
     }
 

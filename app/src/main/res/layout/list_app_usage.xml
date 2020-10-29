@@ -4,19 +4,25 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/list_item_user_id"
-        android:layout_width="130dp"
+        android:id="@+id/list_item_usage_name"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/list_item_user_pwd"
-        android:layout_width="130dp"
+        android:id="@+id/list_item_usage_count"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/list_item_user_type"
+        android:id="@+id/list_item_usage_time"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/list_item_usage_package_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
