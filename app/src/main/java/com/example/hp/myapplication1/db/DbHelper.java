@@ -88,13 +88,12 @@ public class DbHelper extends SQLiteOpenHelper {
         return userPOJO;
     }
 
-    public List<Map<String,Object>> queryALL(){
+    public List<Map<String,Object>> queryALL(List<Map<String,Object>> mapList){
         SQLiteDatabase db = this.getReadableDatabase();
         sql.delete(0,sql.length());
         sql.append("SELECT * FROM ");
         sql.append(TBL_NAME1);
         Cursor cur = db.rawQuery(sql.toString(), null);
-        List<Map<String,Object>> mapList = new LinkedList<>();
         while (cur.moveToNext()){
             Map<String,Object> map = new HashMap<>();
             map.put(TBL_NAME1_COL1,cur.getString(cur.getColumnIndex(TBL_NAME1_COL1)));

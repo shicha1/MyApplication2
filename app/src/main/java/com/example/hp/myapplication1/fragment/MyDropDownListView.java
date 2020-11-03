@@ -14,58 +14,51 @@ import com.example.hp.myapplication1.info.AppInstalledInfo;
 import com.example.hp.myapplication1.Utils.DropDownListView;
 import com.example.hp.myapplication1.Utils.ToastUtils;
 import com.example.hp.myapplication1.info.AppUsageInfo;
+import com.example.hp.myapplication1.info.ListItemsManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class MyDropDownListView {
     private final Activity                      act;
     private final DropDownListView              listView;
-    private  List<Map<String,Object>>           listItems;
+    private ListItemsManager                    listItemsManager;
+    private final List<Map<String,Object>>      listItems = new LinkedList<>();
     private  SimpleAdapter                      adapter;
-    public int                                  MORE_DATA_MAX_COUNT = 3;
-    public int                                  moreDataCount       = 0;
+    public Integer                              MORE_DATA_MAX_COUNT = 0;
+    public Integer                              moreDataCount       = 0;
 
     public MyDropDownListView(Activity act, ListView myListView, String flag){
         this.act = act;
         listView = (DropDownListView)myListView;
         //show different fragment here
+        int layout_id;
         switch (flag){
             case ContentFragment.FIRST:
-                AppInstalledInfo cu = new AppInstalledInfo(this.act);
-                listItems = cu.getAppInstalled();
-                adapter = new SimpleAdapter(this.act,
-                        listItems,
-                        R.layout.list_app_install,
-                        cu.dataFrom(),
-                        cu.dataTo());
+                listItemsManager = new AppInstalledInfo(this.act);
+                layout_id = R.layout.list_app_install;
                 break;
-                case ContentFragment.SECOND:
-                AppUsageInfo appUsageInfo = new AppUsageInfo(this.act);
-                listItems = appUsageInfo.getAppUsage();
-                adapter = new SimpleAdapter(this.act,
-                        listItems,
-                        R.layout.list_app_usage,
-                        appUsageInfo.dataFrom(),
-                        appUsageInfo.dataTo());
+            case ContentFragment.SECOND:
+                listItemsManager = new AppUsageInfo(this.act);
+                layout_id = R.layout.list_app_usage;
                 break;
             case ContentFragment.SEVENTH:
-                AllUserInfo allUserInfo = new AllUserInfo(this.act);
-                listItems = allUserInfo.getAllUser();
-                adapter = new SimpleAdapter(
-                        this.act,
-                        listItems,
-                        R.layout.list_user_all,
-                        allUserInfo.dataFrom(),
-                        allUserInfo.dataTo()
-                );
+                listItemsManager = new AllUserInfo(this.act);
+                layout_id =  R.layout.list_user_all;
                 break;
             default: return;
-
         }
-
+        listItemsManager.getItemList(listItems);
+        adapter = new SimpleAdapter(
+                this.act,
+                listItems,
+                layout_id,
+                listItemsManager.dataFrom(),
+                listItemsManager.dataTo()
+        );
 
         listView.setOnDropDownListener(new DropDownListView.OnDropDownListener() {
             @Override
@@ -126,7 +119,7 @@ public class MyDropDownListView {
         protected void onPostExecute(String result) {
 
             if (isDropDown) {
-//                listItems.addFirst("Added after drop down");
+                listItemsManager.itemListUpdate(listItems);
                 adapter.notifyDataSetChanged();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd HH:mm:ss");
                 listView.onDropDownComplete(act.getString(R.string.update_at) + dateFormat.format(new Date()));

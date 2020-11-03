@@ -2,7 +2,6 @@ package com.example.hp.myapplication1.info;
 import android.app.Activity;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -12,22 +11,22 @@ import java.util.Map;
 import com.example.hp.myapplication1.R;
 
 
-public class AppInstalledInfo {
+public class AppInstalledInfo implements ListItemsManager{
     private Activity act;
 
     public AppInstalledInfo(Activity act){
         this.act = act;
     }
 
-    public List<Map<String,Object>> getAppInstalled(){
-
+    @Override
+    public List<Map<String,Object>> getItemList(List<Map<String,Object>> mapList){
+        mapList.clear();
         List<PackageInfo> apps = new ArrayList<PackageInfo>();
-        List<Map<String,Object>> appList = new LinkedList<>();
         PackageManager packageManager = act.getPackageManager();
         List<PackageInfo> pkgLists = packageManager.getInstalledPackages(0);
         for (PackageInfo packageInfo : pkgLists) {
             ApplicationInfo applicationInfo = packageInfo.applicationInfo;
-            if ((applicationInfo.flags & applicationInfo.FLAG_SYSTEM) <= 0 || true) {// 这是为了过滤系统应用
+            if ((applicationInfo.flags & applicationInfo.FLAG_SYSTEM) <= 0) {// 这是为了过滤系统应用
                 apps.add(packageInfo);
                 String str=applicationInfo.loadLabel(packageManager).toString();
 //                Log.d("pin", "applicationInfo.packageName->" + applicationInfo.packageName);
@@ -37,17 +36,29 @@ public class AppInstalledInfo {
             Map<String,Object> map = new HashMap<>();
             map.put("imageID",packageManager.getApplicationIcon(apps.get(i).applicationInfo));
             map.put("info",apps.get(i).applicationInfo.loadLabel(packageManager).toString());
-            appList.add(map);
+            mapList.add(map);
         }
-        return appList;
+        return mapList;
     }
 
+    @Override
     public String[] dataFrom(){
         return new String[]{"imageID","info"};
     }
 
+    @Override
     public int[] dataTo(){
         return new int[]{R.id.list_item_install_image,R.id.list_item_install_name};
     }
 
+    @Override
+    public List<Map<String, Object>> itemListLoadMore(List<Map<String, Object>> mapList) {
+        return mapList;
+    }
+
+    @Override
+    public List<Map<String, Object>> itemListUpdate(List<Map<String, Object>> mapList) {
+        getItemList(mapList);
+        return mapList;
+    }
 }
