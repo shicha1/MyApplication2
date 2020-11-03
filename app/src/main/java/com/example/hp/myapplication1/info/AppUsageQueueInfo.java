@@ -26,7 +26,7 @@ public class AppUsageQueueInfo implements ListItemsManager{
         for(UsageEvents.Event event : usageQueue.getmEventListChecked()){
             Map<String,Object> map = new HashMap<>();
             map.put("imageID",usageQueue.getAppIconByPackageName(act,event.getPackageName()));
-            map.put("info",event.getPackageName());
+            map.put("info",usageQueue.getApplicationNameByPackageName(act,event.getPackageName()));
             mapList.add(map);
         }
         return mapList;
