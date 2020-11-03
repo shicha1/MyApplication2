@@ -4,14 +4,15 @@ import android.annotation.TargetApi;
 import android.app.usage.UsageEvents;
 import android.os.Build;
 
-import java.util.ArrayList;
+import java.util.List;
+
 
 public class OneTimeDetails {
     private String pkgName;
     private long                          useTime;
-    private ArrayList<UsageEvents.Event> OneTimeDetailEventList;
+    private List<UsageEvents.Event> OneTimeDetailEventList;
 
-    public OneTimeDetails(String pkg, long useTime, ArrayList<UsageEvents.Event> oneTimeDetailList) {
+    public OneTimeDetails(String pkg, long useTime, List<UsageEvents.Event> oneTimeDetailList) {
         this.pkgName = pkg;
         this.useTime = useTime;
         OneTimeDetailEventList = oneTimeDetailList;
@@ -33,11 +34,11 @@ public class OneTimeDetails {
         this.useTime = useTime;
     }
 
-    public ArrayList<UsageEvents.Event> getOneTimeDetailEventList() {
+    public List<UsageEvents.Event> getOneTimeDetailEventList() {
         return OneTimeDetailEventList;
     }
 
-    public void setOneTimeDetailEventList(ArrayList<UsageEvents.Event> oneTimeDetailEventList) {
+    public void setOneTimeDetailEventList(List<UsageEvents.Event> oneTimeDetailEventList) {
         OneTimeDetailEventList = oneTimeDetailEventList;
     }
 

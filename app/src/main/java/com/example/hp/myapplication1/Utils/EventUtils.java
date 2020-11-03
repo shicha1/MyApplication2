@@ -33,7 +33,7 @@ public class EventUtils {
             UsageEvents.Event e = new UsageEvents.Event();
             events.getNextEvent(e);
             if (e != null && (e.getEventType() == 1 || e.getEventType() == 2)) {
-                Log.i(TAG," EventUtils-getEventList()  "+e.getTimeStamp()+"   event:" + e.getClassName() + "   type = " + e.getEventType());
+//                Log.i(TAG," EventUtils-getEventList()  "+e.getTimeStamp()+"   event:" + e.getClassName() + "   type = " + e.getEventType());
                 mEventList.add(e);
             }
         }
@@ -58,7 +58,7 @@ public class EventUtils {
             UsageStats stats = entry.getValue();
             if(stats.getTotalTimeInForeground() > 0){
                 list.add(stats);
-                Log.i(TAG," EventUtils-getUsageList()   stats:" + stats.getPackageName() + "   TotalTimeInForeground = " + stats.getTotalTimeInForeground());
+//                Log.i(TAG," EventUtils-getUsageList()   stats:" + stats.getPackageName() + "   TotalTimeInForeground = " + stats.getTotalTimeInForeground());
             }
         }
 

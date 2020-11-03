@@ -14,6 +14,7 @@ import com.example.hp.myapplication1.info.AppInstalledInfo;
 import com.example.hp.myapplication1.Utils.DropDownListView;
 import com.example.hp.myapplication1.Utils.ToastUtils;
 import com.example.hp.myapplication1.info.AppUsageInfo;
+import com.example.hp.myapplication1.info.AppUsageQueueInfo;
 import com.example.hp.myapplication1.info.ListItemsManager;
 
 import java.text.SimpleDateFormat;
@@ -44,6 +45,10 @@ public class MyDropDownListView {
             case ContentFragment.SECOND:
                 listItemsManager = new AppUsageInfo(this.act);
                 layout_id = R.layout.list_app_usage;
+                break;
+            case ContentFragment.THIRD:
+                listItemsManager = new AppUsageQueueInfo(this.act);
+                layout_id = R.layout.list_app_install;
                 break;
             case ContentFragment.SEVENTH:
                 listItemsManager = new AllUserInfo(this.act);
