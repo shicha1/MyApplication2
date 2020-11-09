@@ -113,7 +113,12 @@ public class UseTimeDataManager {
             String pkg = mUsagePOJOList.get(n).getmPackageName();
             for (int m = 0; m < mOneTimeDetailList.size(); m++) {
                 if (pkg.equals(mOneTimeDetailList.get(m).getPkgName())) {
+                    if(mUsagePOJOList.get(n).getmUsedCount()==0){
+                        mUsagePOJOList.get(n).setFirstRun(mOneTimeDetailList.get(m).getOneTimeDetailEventList().get(0).getTimeStamp());
+                    }
                     mUsagePOJOList.get(n).addCount();
+                    mUsagePOJOList.get(n).setLastRun(mOneTimeDetailList.get(m).getOneTimeDetailEventList()
+                            .get(mOneTimeDetailList.get(m).getOneTimeDetailEventList().size()-1).getTimeStamp());
                 }
             }
         }
@@ -197,8 +202,10 @@ public class UseTimeDataManager {
             endTime = System.currentTimeMillis();
             startTime = DateTransUtils.getZeroClockTimestamp(endTime);
         } else {
-            endTime = DateTransUtils.getZeroClockTimestamp(System.currentTimeMillis() - (dayNumber - 1) * DateTransUtils.DAY_IN_MILLIS) - 1;
-            startTime = endTime - DateTransUtils.DAY_IN_MILLIS + 1;
+//            endTime = DateTransUtils.getZeroClockTimestamp(System.currentTimeMillis() - (dayNumber - 1) * DateTransUtils.DAY_IN_MILLIS) - 1;
+//            startTime = endTime - DateTransUtils.DAY_IN_MILLIS + 1;
+            endTime = System.currentTimeMillis();
+            startTime = DateTransUtils.getZeroClockTimestamp(endTime) - DateTransUtils.DAY_IN_MILLIS*(dayNumber-1);
         }
 
         return EventUtils.getUsageList(mContext, startTime, endTime);
@@ -307,7 +314,7 @@ public class UseTimeDataManager {
         if (usedIndex < mEventListChecked.size() - 1) {
             refreshOneTimeDetailList(usedIndex);
         } else {
-//            Log.i(TAG, "  refreshOneTimeDetailList()     已经将  mEventListChecked 分类完毕   ");
+            Log.i(TAG, "  refreshOneTimeDetailList()     已经将  mEventListChecked 分类完毕   ");
         }
 
     }

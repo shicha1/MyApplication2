@@ -18,7 +18,7 @@ public class AllUserInfo implements ListItemsManager{
     @Override
     public List<Map<String,Object>> getItemList(List<Map<String,Object>> userList){
         userList.clear();
-        return dbHelper.queryALL(userList);
+        return dbHelper.queryUserALL(userList);
     }
 
     @Override

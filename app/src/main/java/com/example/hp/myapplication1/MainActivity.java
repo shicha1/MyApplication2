@@ -103,7 +103,7 @@ public class MainActivity extends Activity {
                 if(myDbHelper.queryUserByID(user_id_str).getPwd()!=null){
                     ToastUtils.show(MainActivity.this,"账户已存在");
                 }else{
-                    myDbHelper.insert(user_id_str,user_pwd_str,1);
+                    myDbHelper.insertUser(user_id_str,user_pwd_str,1);
                     ToastUtils.show(MainActivity.this,"学生用户注册成功");
                 }
             }else {

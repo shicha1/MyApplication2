@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.hp.myapplication1.Utils.DateTransUtils;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +20,10 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String TBL_NAME1_COL1 = "ID";
     public static final String TBL_NAME1_COL2 = "PWD";
     public static final String TBL_NAME1_COL3 = "TYPE";
+    public static final String TBL_NAME2 = "appInfo";
+    public static final String TBL_NAME2_COL1 = "name";
+    public static final String TBL_NAME2_COL2 = "firstRun";
+    public static final String TBL_NAME2_COL3 = "lastRun";
     StringBuilder sql = new StringBuilder();
 
     public DbHelper(Context context){
@@ -41,6 +47,20 @@ public class DbHelper extends SQLiteOpenHelper {
         sql.append(" INTEGER)");
         Log.i("sql",sql.toString());
         db.execSQL(sql.toString());
+
+        sql.delete(0,sql.length());
+        sql.append("CREATE TABLE ");
+        sql.append(TBL_NAME2);
+        sql.append(" (");
+        sql.append(TBL_NAME2_COL1);
+        sql.append(" CHAR(25) PRIMARY KEY,");
+        sql.append(TBL_NAME2_COL2);
+        sql.append(" INTEGER,");
+        sql.append(TBL_NAME2_COL3);
+        sql.append(" INTEGER)");
+        Log.i("sql",sql.toString());
+        db.execSQL(sql.toString());
+
         ContentValues cv = new ContentValues();
         cv.put(TBL_NAME1_COL1,"123");
         cv.put(TBL_NAME1_COL2,"123");
@@ -59,7 +79,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-    public boolean insert(String ID, String string, Integer type){
+    public boolean insertUser(String ID, String string, Integer type){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(TBL_NAME1_COL1,ID);
@@ -88,7 +108,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return userPOJO;
     }
 
-    public List<Map<String,Object>> queryALL(List<Map<String,Object>> mapList){
+    public List<Map<String,Object>> queryUserALL(List<Map<String,Object>> mapList){
         SQLiteDatabase db = this.getReadableDatabase();
         sql.delete(0,sql.length());
         sql.append("SELECT * FROM ");
@@ -104,6 +124,35 @@ public class DbHelper extends SQLiteOpenHelper {
         if(!cur.isClosed())
             cur.close();
         return mapList;
+    }
+
+    public List<Map<String,Object>> queryAppFLRunALl(List<Map<String,Object>> mapList){
+        if (mapList==null)
+            mapList = new LinkedList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        sql.delete(0,sql.length());
+        sql.append("SELECT * FROM ");
+        sql.append(TBL_NAME2);
+        Cursor cur = db.rawQuery(sql.toString(), null);
+        while (cur.moveToNext()){
+            Map<String,Object> map = new HashMap<>();
+            map.put(TBL_NAME2_COL1,cur.getString(cur.getColumnIndex(TBL_NAME2_COL1)));
+            map.put(TBL_NAME2_COL2, DateTransUtils.stampToDate(cur.getString(cur.getColumnIndex(TBL_NAME2_COL2))));
+            map.put(TBL_NAME2_COL3,DateTransUtils.stampToDate(cur.getString(cur.getColumnIndex(TBL_NAME2_COL3))));
+            mapList.add(map);
+        }
+        if(!cur.isClosed())
+            cur.close();
+        return mapList;
+    }
+
+    public boolean insertApp(UsagePOJO appFLRunPOJO){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(TBL_NAME2_COL1,appFLRunPOJO.getmAppName());
+        cv.put(TBL_NAME2_COL2,appFLRunPOJO.getFirstRun());
+        cv.put(TBL_NAME2_COL3,appFLRunPOJO.getLastRun());
+        return db.insert(TBL_NAME2,null,cv)>0;
     }
 
     public String[] getTBL1_all_name(){

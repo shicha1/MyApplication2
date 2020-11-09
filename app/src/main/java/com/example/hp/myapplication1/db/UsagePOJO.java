@@ -77,4 +77,23 @@ public class UsagePOJO {
                 ", mAppName='" + mAppName + '\'' +
                 '}';
     }
+
+    private long firstRun;
+    private long lastRun;
+
+    public long getFirstRun() {
+        return firstRun;
+    }
+
+    public void setFirstRun(long firstRun) {
+        this.firstRun = firstRun;
+    }
+
+    public long getLastRun() {
+        return lastRun;
+    }
+
+    public void setLastRun(long lastRun) {
+        this.lastRun = lastRun;
+    }
 }

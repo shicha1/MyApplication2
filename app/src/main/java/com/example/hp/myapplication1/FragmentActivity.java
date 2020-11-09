@@ -2,6 +2,7 @@ package com.example.hp.myapplication1;
 
 import android.animation.Animator;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -31,6 +32,7 @@ import yalantis.com.sidemenu.model.SlideMenuItem;
 import com.example.hp.myapplication1.Utils.ToastUtils;
 import com.example.hp.myapplication1.db.DbHelper;
 import com.example.hp.myapplication1.fragment.ContentFragment;
+import com.example.hp.myapplication1.service.CollectFLStartSer;
 
 import yalantis.com.sidemenu.util.ViewAnimator;
 
@@ -67,6 +69,9 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
         setActionBar();
         createMenuList();
         viewAnimator = new ViewAnimator<>(this, list, contentFragment, drawerLayout, this);
+
+        Intent ser = new Intent(this ,CollectFLStartSer.class);
+        startService(ser);
     }
 
     private void createMenuList() {

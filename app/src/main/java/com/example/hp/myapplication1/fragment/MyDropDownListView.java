@@ -16,6 +16,7 @@ import com.example.hp.myapplication1.info.AllUserInfo;
 import com.example.hp.myapplication1.info.AppInstalledInfo;
 import com.example.hp.myapplication1.Utils.DropDownListView;
 import com.example.hp.myapplication1.Utils.ToastUtils;
+import com.example.hp.myapplication1.info.AppUsageFLRunInfo;
 import com.example.hp.myapplication1.info.AppUsageInfo;
 import com.example.hp.myapplication1.info.AppUsageQueueInfo;
 import com.example.hp.myapplication1.info.ListItemsManager;
@@ -57,6 +58,11 @@ public class MyDropDownListView {
                 listItemsManager = new AppUsageQueueInfo(this.act,recentDays);
                 layout_id = R.layout.list_app_install;
                 tv.setText(">程序打开顺序");
+                break;
+            case ContentFragment.FOURTH:
+                listItemsManager = new AppUsageFLRunInfo(this.act);
+                layout_id = R.layout.list_app_usage;
+                tv.setText(">程序首末打开时间");
                 break;
             case ContentFragment.SEVENTH:
                 listItemsManager = new AllUserInfo(this.act);

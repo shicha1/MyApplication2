@@ -23,5 +23,6 @@
             android:name=".FragmentActivity"
             android:theme="@style/AppTheme1">
         </activity>
+        <service android:name=".service.CollectFLStartSer"/>
     </application>
 </manifest>
