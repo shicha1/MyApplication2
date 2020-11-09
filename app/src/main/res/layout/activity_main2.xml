@@ -30,6 +30,16 @@
             android:minHeight="?attr/actionBarSize"
             android:background="@android:color/transparent"/>
 
+        <TextView
+            android:id="@+id/fragment_label"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/menu_tool_height"
+            android:layout_marginStart="160dp"
+            android:text=">WelCome"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center_vertical"/>
+
     </io.codetail.widget.RevealFrameLayout>
 
     <ScrollView

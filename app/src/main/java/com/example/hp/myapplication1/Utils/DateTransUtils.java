@@ -30,6 +30,23 @@ public class DateTransUtils {
         return res;
     }
 
+    //convert total time(ms) to HH:MM:SS
+    public static String timeToHMS(long time){
+        time/=1000;
+        if(time<60){
+            return time+"秒";
+        }else if(time<3600){
+            long m = time/60;
+            long s = time%60;
+            return m+"分"+s+"秒";
+        }else {
+            long h = time/3600;
+            long m = (time%3600)/60;
+            long s = (time%3600)%60;
+            return h+"时"+m+"分"+s+"秒";
+        }
+    }
+
     //获取今日某时间的时间戳
     public static long getTodayStartStamp(int hour,int minute,int second){
         Calendar cal = Calendar.getInstance();

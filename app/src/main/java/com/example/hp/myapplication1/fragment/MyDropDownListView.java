@@ -3,11 +3,14 @@ package com.example.hp.myapplication1.fragment;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
+
 import com.example.hp.myapplication1.R;
 import com.example.hp.myapplication1.info.AllUserInfo;
 import com.example.hp.myapplication1.info.AppInstalledInfo;
@@ -32,29 +35,37 @@ public class MyDropDownListView {
     public Integer                              MORE_DATA_MAX_COUNT = 0;
     public Integer                              moreDataCount       = 0;
 
-    public MyDropDownListView(Activity act, ListView myListView, String flag){
+    public MyDropDownListView(Activity act, ListView myListView, String flag, int recentDays){
         this.act = act;
         listView = (DropDownListView)myListView;
         //show different fragment here
         int layout_id;
+        TextView tv = this.act.findViewById(R.id.fragment_label);
+//        Log.e("day", String.valueOf(recentDays));
         switch (flag){
             case ContentFragment.FIRST:
                 listItemsManager = new AppInstalledInfo(this.act);
                 layout_id = R.layout.list_app_install;
+                tv.setText(">所有安装程序");
                 break;
             case ContentFragment.SECOND:
-                listItemsManager = new AppUsageInfo(this.act);
+                listItemsManager = new AppUsageInfo(this.act,recentDays);
                 layout_id = R.layout.list_app_usage;
+                tv.setText(">程序使用次数和时间");
                 break;
             case ContentFragment.THIRD:
-                listItemsManager = new AppUsageQueueInfo(this.act);
+                listItemsManager = new AppUsageQueueInfo(this.act,recentDays);
                 layout_id = R.layout.list_app_install;
+                tv.setText(">程序打开顺序");
                 break;
             case ContentFragment.SEVENTH:
                 listItemsManager = new AllUserInfo(this.act);
                 layout_id =  R.layout.list_user_all;
+                tv.setText(">用户管理");
                 break;
-            default: return;
+            default:
+                tv.setText(" ");
+                return;
         }
         listItemsManager.getItemList(listItems);
         adapter = new SimpleAdapter(

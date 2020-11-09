@@ -1,18 +1,22 @@
 package com.example.hp.myapplication1;
 
 import android.animation.Animator;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 
@@ -24,6 +28,7 @@ import yalantis.com.sidemenu.interfaces.Resourceble;
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 import yalantis.com.sidemenu.model.SlideMenuItem;
 
+import com.example.hp.myapplication1.Utils.ToastUtils;
 import com.example.hp.myapplication1.db.DbHelper;
 import com.example.hp.myapplication1.fragment.ContentFragment;
 
@@ -37,13 +42,14 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
     private int                   res = R.drawable.content_music;
     private LinearLayout          linearLayout;
     private int                   type;
+    public  int                   recentDays=1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        ContentFragment contentFragment = ContentFragment.newInstance(R.drawable.content_music);
+        ContentFragment contentFragment = ContentFragment.newInstance(R.drawable.bg3);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, contentFragment)
                 .commit();
@@ -145,13 +151,24 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
             return true;
         }
         if (item.getItemId() == R.id.action_settings) {
+            final EditText et = new EditText(this);
+            et.setInputType(InputType.TYPE_CLASS_NUMBER);
+            et.setText(String.valueOf(FragmentActivity.this.recentDays));
+            new AlertDialog.Builder(this).setTitle("查询最近多少天").setView(et)
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            FragmentActivity.this.recentDays = Integer.parseInt(et.getText().toString());
+                            ToastUtils.show(FragmentActivity.this,"设置成功");
+                        }
+                    }).setNegativeButton("取消",null).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private ScreenShotable replaceFragment(ScreenShotable screenShotable, int topPosition, String type) {
-        this.res = this.res == R.drawable.content_music ? R.drawable.content_films : R.drawable.content_music;
+        this.res = this.res == R.drawable.bg3 ? R.drawable.bg1 : R.drawable.bg3;
         View view = findViewById(R.id.content_frame);
         int finalRadius = Math.max(view.getWidth(), view.getHeight());
         Animator animator = ViewAnimationUtils.createCircularReveal(view, 0, topPosition, 0, finalRadius);
@@ -160,7 +177,7 @@ public class FragmentActivity extends AppCompatActivity implements ViewAnimator.
 
         findViewById(R.id.content_overlay).setBackground(new BitmapDrawable(getResources(), screenShotable.getBitmap()));
         animator.start();
-        ContentFragment contentFragment = ContentFragment.newInstance(this.res,type);
+        ContentFragment contentFragment = ContentFragment.newInstance(this.res,type,recentDays);
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, contentFragment).commit();
         return contentFragment;
     }

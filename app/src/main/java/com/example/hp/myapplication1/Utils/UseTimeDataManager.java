@@ -11,7 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-//import android.util.Log;
+import android.util.Log;
 
 
 import com.example.hp.myapplication1.db.UsagePOJO;
@@ -79,10 +79,10 @@ public class UseTimeDataManager {
         mStatsList = getUsageList(dayNumber);
 
         if (mEventList == null || mEventList.size() == 0) {
-//            Log.i(TAG, " UseTimeDataManager-refreshData()   未查到events");
+            Log.i(TAG, " UseTimeDataManager-refreshData()   未查到events");
 
             if (mStatsList == null || mStatsList.size() == 0) {
-//                Log.i(TAG, " UseTimeDataManager-refreshData()   未查到stats");
+                Log.i(TAG, " UseTimeDataManager-refreshData()   未查到stats");
                 return 2;
             }
 
@@ -181,8 +181,10 @@ public class UseTimeDataManager {
             endTime = System.currentTimeMillis();
             startTime = DateTransUtils.getZeroClockTimestamp(endTime);
         } else {
-            endTime = DateTransUtils.getZeroClockTimestamp(System.currentTimeMillis() - (dayNumber - 1) * DateTransUtils.DAY_IN_MILLIS) - 1;
-            startTime = endTime - DateTransUtils.DAY_IN_MILLIS + 1;
+//            endTime = DateTransUtils.getZeroClockTimestamp(System.currentTimeMillis() - (dayNumber - 1) * DateTransUtils.DAY_IN_MILLIS) - 1;
+//            startTime = endTime - DateTransUtils.DAY_IN_MILLIS + 1;
+            endTime = System.currentTimeMillis();
+            startTime = DateTransUtils.getZeroClockTimestamp(endTime) - DateTransUtils.DAY_IN_MILLIS*(dayNumber-1);
         }
         return EventUtils.getEventList(mContext, startTime, endTime);
     }

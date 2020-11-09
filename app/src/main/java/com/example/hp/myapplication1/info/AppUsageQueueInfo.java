@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.usage.UsageEvents;
 
 import com.example.hp.myapplication1.R;
+import com.example.hp.myapplication1.Utils.DateTransUtils;
 import com.example.hp.myapplication1.Utils.UseTimeDataManager;
 import com.example.hp.myapplication1.db.UsagePOJO;
 
@@ -13,20 +14,23 @@ import java.util.Map;
 
 public class AppUsageQueueInfo implements ListItemsManager{
     private Activity act;
+    private int recentDays;
 
-    public AppUsageQueueInfo(Activity act){
+    public AppUsageQueueInfo(Activity act, int recentDays){
         this.act = act;
+        this.recentDays = recentDays;
     }
 
     @Override
     public List<Map<String ,Object>> getItemList(List<Map<String ,Object>> mapList){
         mapList.clear();
         UseTimeDataManager usageQueue  = UseTimeDataManager.getInstance(act);
-        usageQueue.refreshData(0);
+        usageQueue.refreshData(recentDays);
         for(UsageEvents.Event event : usageQueue.getmEventListChecked()){
             Map<String,Object> map = new HashMap<>();
             map.put("imageID",usageQueue.getAppIconByPackageName(act,event.getPackageName()));
             map.put("info",usageQueue.getApplicationNameByPackageName(act,event.getPackageName()));
+            map.put("openTime", DateTransUtils.stampToDate(event.getTimeStamp()));
             mapList.add(map);
         }
         return mapList;
@@ -45,11 +49,11 @@ public class AppUsageQueueInfo implements ListItemsManager{
 
     @Override
     public String[] dataFrom(){
-        return new String[]{"imageID","info"};
+        return new String[]{"imageID","info","openTime"};
     }
 
     @Override
     public int[] dataTo(){
-        return new int[]{R.id.list_item_install_image,R.id.list_item_install_name};
+        return new int[]{R.id.list_item_install_image,R.id.list_item_install_name,R.id.list_item_install_openTime};
     }
 }

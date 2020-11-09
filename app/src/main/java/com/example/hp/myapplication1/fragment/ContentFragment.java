@@ -29,19 +29,17 @@ public class ContentFragment extends Fragment implements ScreenShotable {
     protected int              res;
     private Bitmap             bitmap;
     protected ListView         mListView;
+    private int                recentDays;
 
     private String type;
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public static ContentFragment newInstance(int resId, String type) {
+    public static ContentFragment newInstance(int resId, String type, int recentDays) {
         ContentFragment contentFragment = new ContentFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(Integer.class.getName(), resId);
         contentFragment.setArguments(bundle);
         contentFragment.setType(type);
+        contentFragment.setRecentDays(recentDays);
         return contentFragment;
     }
 
@@ -75,7 +73,7 @@ public class ContentFragment extends Fragment implements ScreenShotable {
         mImageView.setImageResource(res);
         if(type != null){
             mListView = rootView.findViewById(R.id.list_dropdownview);
-            new MyDropDownListView(this.getActivity(),mListView, type);
+            new MyDropDownListView(this.getActivity(),mListView, type, recentDays);
             return rootView;
         }
         return rootView;
@@ -95,5 +93,12 @@ public class ContentFragment extends Fragment implements ScreenShotable {
         return bitmap;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setRecentDays(int recentDays) {
+        this.recentDays = recentDays;
+    }
 }
 
