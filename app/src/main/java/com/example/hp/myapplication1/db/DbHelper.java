@@ -155,6 +155,13 @@ public class DbHelper extends SQLiteOpenHelper {
         return db.insert(TBL_NAME2,null,cv)>0;
     }
 
+    public boolean updateApp(UsagePOJO appFLRunPOJO){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(TBL_NAME2_COL3,appFLRunPOJO.getLastRun());
+        return db.update(TBL_NAME2,cv,TBL_NAME1_COL1+"=?",new String[]{appFLRunPOJO.getmAppName()})>0;
+    }
+
     public String[] getTBL1_all_name(){
         return new String[]{TBL_NAME1_COL1,TBL_NAME1_COL2,TBL_NAME1_COL3};
     }

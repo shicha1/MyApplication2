@@ -2,7 +2,9 @@ package com.example.hp.myapplication1.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.example.hp.myapplication1.Utils.UseTimeDataManager;
 import com.example.hp.myapplication1.db.DbHelper;
@@ -14,9 +16,19 @@ public class CollectFLStartSer extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        DbHelper dbHelper = new DbHelper(this);
+        final DbHelper dbHelper = new DbHelper(this);
         if(dbHelper.queryAppFLRunALl(null).size() == 0)
-            firstQuery(dbHelper);
+            new Thread(){
+                @Override
+                public void run() {
+                    firstQuery(dbHelper);
+                    IntentFilter intentFilter = new IntentFilter();
+                    intentFilter.addAction(Intent.ACTION_DATE_CHANGED);
+                    DayChangeReceiver dayChangeReceiver = new DayChangeReceiver();
+                    registerReceiver(dayChangeReceiver,intentFilter);
+                }
+            }.start();
+
     }
 
     @Override
@@ -27,6 +39,7 @@ public class CollectFLStartSer extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.e("ser","done");
     }
 
     @Override
@@ -39,7 +52,8 @@ public class CollectFLStartSer extends Service {
         mUseTimeDataManager.refreshData(30);
         List<UsagePOJO> usagePOJOS = mUseTimeDataManager.getmPackageInfoListOrderByTime();
         for (int i = 0; i < usagePOJOS.size(); i++) {
-            dbHelper.insertApp(usagePOJOS.get(i));
+            if (!usagePOJOS.get(i).getmAppName().equals(""))
+                dbHelper.insertApp(usagePOJOS.get(i));
         }
     }
 }
