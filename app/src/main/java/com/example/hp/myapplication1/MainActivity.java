@@ -79,9 +79,13 @@ public class MainActivity extends Activity {
             if(rsPWD != null && rsType!=null){
                 if(rsPWD.equals(user_pwd_str)&&rsType.equals(type)){
                     ToastUtils.show(MainActivity.this,"登陆成功");
-                    Intent intent = new Intent(MainActivity.this, FragmentActivity.class);
-                    intent.putExtra("type",type);
-                    startActivity(intent);
+//                    Intent intent = new Intent(MainActivity.this, FragmentActivity.class);
+//                    intent.putExtra("type",type);
+//                    startActivity(intent);
+              //      Intent intent3 = new Intent(MainActivity.this, AppStatisticsList.class);
+                      Intent intent3 = new Intent(MainActivity.this, AppStatisticsList.class);
+                      intent3.putExtra("type",type);
+                     startActivity(intent3);
                     MainActivity.this.finish();
                     return;
                 }

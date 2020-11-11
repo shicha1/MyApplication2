@@ -10,6 +10,9 @@
     <drawable name="blue">#2A00FF</drawable>
     <drawable name="green">#f0f0</drawable>
     <drawable name="yellow">#FFFEA4</drawable>
+    <color name="bg_black">#000000</color>
+    <color name="dimgrey">#696969</color><!--暗灰色 -->
+    <color name="white">#FFFFFFFE</color>
     <!-- drop down list header font color -->
     <color name="drop_down_list_header_font_color">#000000</color>
     <!-- drop down list header second font color -->
