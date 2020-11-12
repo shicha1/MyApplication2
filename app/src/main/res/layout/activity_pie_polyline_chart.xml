@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/container">
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/image_content"
+        android:src="@drawable/bg1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/buttonbarchart1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="145px"
+        android:id="@+id/buttonbarchart1"
+        android:orientation="horizontal">
+
+        <Button
+            android:text="DAY"
+            android:layout_width="0dp"
+            android:layout_weight="1.0"
+            android:layout_height="wrap_content"
+            android:id="@+id/daybuttonchart1"
+            android:background="@drawable/bt_layout"
+            android:textColor="@color/white"/>
+
+
+        <Button
+            android:text="WEEK"
+            android:layout_width="0dp"
+            android:layout_weight="1.0"
+            android:layout_height="wrap_content"
+            android:id="@+id/weekbuttonchart1"
+            android:background="@drawable/bt_layout"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:text="MONTH"
+            android:layout_width="0px"
+            android:layout_weight="1.0"
+            android:layout_height="wrap_content"
+            android:id="@+id/monthbuttonchart1"
+            android:background="@drawable/bt_layout"
+            android:textColor="@color/white"/>
+
+        <Button
+            android:text="YEAR"
+            android:layout_width="0px"
+            android:layout_weight="1.0"
+            android:layout_height="wrap_content"
+            android:id="@+id/yearbuttonchart1"
+            android:background="@drawable/bt_layout"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewchart"
+        android:layout_marginTop="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

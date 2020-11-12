@@ -18,6 +18,7 @@ import com.example.hp.myapplication1.db.UsagePOJO;
 
 import java.lang.reflect.Field;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,13 +45,13 @@ public class UseTimeDataManager {
     private List<UsageStats> mStatsList;
 
     //记录打开一次应用，使用的activity详情
-    private List<OneTimeDetails> mOneTimeDetailList = new LinkedList<>();
+    private List<OneTimeDetails> mOneTimeDetailList = new ArrayList<>();
 
     //记录某一次打开应用的使用情况（查询某一次使用情况的时候，用于界面显示）
     private OneTimeDetails mOneTimeDetails;
 
     //主界面数据
-    private List<UsagePOJO> mUsagePOJOList = new LinkedList<>();
+    private List<UsagePOJO> mUsagePOJOList = new ArrayList<>();
 
 
     public UseTimeDataManager(Context context) {
@@ -76,16 +77,37 @@ public class UseTimeDataManager {
     public int refreshData(int dayNumber) {
         mDayNum = dayNumber;
         mEventList = getEventList(dayNumber);
-        mStatsList = getUsageList(dayNumber);
+//        mStatsList = getUsageList(dayNumber);
 
         if (mEventList == null || mEventList.size() == 0) {
             Log.i(TAG, " UseTimeDataManager-refreshData()   未查到events");
 
+//            if (mStatsList == null || mStatsList.size() == 0) {
+//                Log.i(TAG, " UseTimeDataManager-refreshData()   未查到stats");
+//                return 2;
+//            }
+
+            return 1;
+        }
+        //获取数据之后，进行数据的处理
+        mEventListChecked = getEventListChecked();
+        refreshOneTimeDetailList(0);
+//        refreshPackageInfoList();
+//        sendEventBus();
+        return 0;
+    }
+
+    public int refreshData2(int dayNumber) {
+        mDayNum = dayNumber;
+        mEventList = getEventList(dayNumber);
+        mStatsList = getUsageList(dayNumber);
+
+        if (mEventList == null || mEventList.size() == 0) {
+            Log.i(TAG, " UseTimeDataManager-refreshData()   未查到events");
             if (mStatsList == null || mStatsList.size() == 0) {
                 Log.i(TAG, " UseTimeDataManager-refreshData()   未查到stats");
                 return 2;
             }
-
             return 1;
         }
 
@@ -214,7 +236,7 @@ public class UseTimeDataManager {
     //仅保留 event 中 type 为 1或者2 的
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private List<UsageEvents.Event> getEventListChecked() {
-        List<UsageEvents.Event> mList = new LinkedList<>();
+        List<UsageEvents.Event> mList = new ArrayList<>();
         for (int i = 0; i < mEventList.size(); i++) {
             if (mEventList.get(i).getEventType() == 1 || mEventList.get(i).getEventType() == 2) {
                 mList.add(mEventList.get(i));
@@ -249,7 +271,7 @@ public class UseTimeDataManager {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private List<UsageEvents.Event> getEventListCheckWithoutErrorData() {
-        List<UsageEvents.Event> mList = new LinkedList<>();
+        List<UsageEvents.Event> mList = new ArrayList<>();
         for (int i = 0; i < mEventList.size(); i++) {
             if (mEventList.get(i).getEventType() == 1 || mEventList.get(i).getEventType() == 2) {
                 mList.add(mEventList.get(i));
@@ -274,7 +296,7 @@ public class UseTimeDataManager {
         long totalTime = 0;
         int usedIndex = 0;
         String pkg = null;
-        List<UsageEvents.Event> list = new LinkedList<>();
+        List<UsageEvents.Event> list = new ArrayList<>();
         for (int i = startIndex; i < mEventListChecked.size(); i++) {
             if (i == startIndex) {
                 if (mEventListChecked.get(i).getEventType() == 2) {
@@ -325,7 +347,7 @@ public class UseTimeDataManager {
             return mOneTimeDetailList;
         }
 
-        List<OneTimeDetails> list = new LinkedList<>();
+        List<OneTimeDetails> list = new ArrayList<>();
         if (mOneTimeDetailList != null && mOneTimeDetailList.size() > 0) {
             for (int i = 0; i < mOneTimeDetailList.size(); i++) {
                 if (mOneTimeDetailList.get(i).getPkgName().equals(pkg)) {
@@ -378,7 +400,7 @@ public class UseTimeDataManager {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public List<UsagePOJO> getPkgInfoListFromUsageList() throws IllegalAccessException {
-        List<UsagePOJO> result = new LinkedList<>();
+        List<UsagePOJO> result = new ArrayList<>();
 
         if (mStatsList != null && mStatsList.size() > 0) {
             for (int i = 0; i < mStatsList.size(); i++) {
@@ -461,13 +483,17 @@ public class UseTimeDataManager {
     }
 
 
-    public List<UsageEvents.Event> getmEventListChecked() {
-        List<UsageEvents.Event> mList = new LinkedList<>();
+    public List<UsageEvents.Event> getmEventListChecked_Resumed() {
+        List<UsageEvents.Event> mList = new ArrayList<>();
         for (int i = 0; i < mEventListChecked.size(); i++) {
             if (mEventListChecked.get(i).getEventType() == UsageEvents.Event.ACTIVITY_RESUMED) {
                 mList.add(0,mEventListChecked.get(i));
             }
         }
         return mList;
+    }
+
+    public List<UsageEvents.Event> getmEventListChecked() {
+        return mEventListChecked;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.hp.myapplication1.Statistics;
+package com.example.hp.myapplication1.Chart;
 
 import android.app.usage.UsageStats;
 import android.content.Context;

@@ -22,8 +22,8 @@ import com.example.hp.myapplication1.info.AppUsageQueueInfo;
 import com.example.hp.myapplication1.info.ListItemsManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +31,7 @@ public class MyDropDownListView {
     private final Activity                      act;
     private final DropDownListView              listView;
     private ListItemsManager                    listItemsManager;
-    private final List<Map<String,Object>>      listItems = new LinkedList<>();
+    private final List<Map<String,Object>>      listItems = new ArrayList<>();
     private  SimpleAdapter                      adapter;
     public Integer                              MORE_DATA_MAX_COUNT = 0;
     public Integer                              moreDataCount       = 0;

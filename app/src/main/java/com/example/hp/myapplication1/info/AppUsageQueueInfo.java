@@ -6,7 +6,6 @@ import android.app.usage.UsageEvents;
 import com.example.hp.myapplication1.R;
 import com.example.hp.myapplication1.Utils.DateTransUtils;
 import com.example.hp.myapplication1.Utils.UseTimeDataManager;
-import com.example.hp.myapplication1.db.UsagePOJO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +25,7 @@ public class AppUsageQueueInfo implements ListItemsManager{
         mapList.clear();
         UseTimeDataManager usageQueue  = UseTimeDataManager.getInstance(act);
         usageQueue.refreshData(recentDays);
-        for(UsageEvents.Event event : usageQueue.getmEventListChecked()){
+        for(UsageEvents.Event event : usageQueue.getmEventListChecked_Resumed()){
             Map<String,Object> map = new HashMap<>();
             map.put("imageID",usageQueue.getAppIconByPackageName(act,event.getPackageName()));
             map.put("info",usageQueue.getApplicationNameByPackageName(act,event.getPackageName()));

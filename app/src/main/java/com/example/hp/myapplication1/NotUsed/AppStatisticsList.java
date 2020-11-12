@@ -1,41 +1,26 @@
-package com.example.hp.myapplication1;
+package com.example.hp.myapplication1.NotUsed;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
-import android.text.method.NumberKeyListener;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-import com.example.hp.myapplication1.Statistics.AppInformation;
-import com.example.hp.myapplication1.Statistics.StatisticsInfo;
+import com.example.hp.myapplication1.Chart.AppInformation;
+import com.example.hp.myapplication1.Chart.StatisticsInfo;
+import com.example.hp.myapplication1.R;
 
 
 public class AppStatisticsList extends AppCompatActivity {

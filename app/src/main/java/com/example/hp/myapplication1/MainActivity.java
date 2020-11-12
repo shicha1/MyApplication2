@@ -16,6 +16,8 @@ import android.widget.RadioGroup;
 import com.example.hp.myapplication1.Utils.ToastUtils;
 import com.example.hp.myapplication1.db.DbHelper;
 import com.example.hp.myapplication1.db.UserPOJO;
+import com.example.hp.myapplication1.service.GetPredict;
+
 import java.util.List;
 
 
@@ -55,6 +57,7 @@ public class MainActivity extends Activity {
                 startActivity(in);
             }
         }
+        GetPredict.doTrain(this);
     }
 
     private class Login_btn_listener implements View.OnClickListener{
@@ -79,13 +82,9 @@ public class MainActivity extends Activity {
             if(rsPWD != null && rsType!=null){
                 if(rsPWD.equals(user_pwd_str)&&rsType.equals(type)){
                     ToastUtils.show(MainActivity.this,"登陆成功");
-//                    Intent intent = new Intent(MainActivity.this, FragmentActivity.class);
-//                    intent.putExtra("type",type);
-//                    startActivity(intent);
-              //      Intent intent3 = new Intent(MainActivity.this, AppStatisticsList.class);
-                      Intent intent3 = new Intent(MainActivity.this, AppStatisticsList.class);
-                      intent3.putExtra("type",type);
-                     startActivity(intent3);
+                    Intent intent = new Intent(MainActivity.this, FragmentActivity.class);
+                    intent.putExtra("type",type);
+                    startActivity(intent);
                     MainActivity.this.finish();
                     return;
                 }

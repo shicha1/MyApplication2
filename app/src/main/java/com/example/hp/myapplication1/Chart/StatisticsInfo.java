@@ -1,4 +1,4 @@
-package com.example.hp.myapplication1.Statistics;
+package com.example.hp.myapplication1.Chart;
 
 import android.annotation.TargetApi;
 import android.app.usage.UsageEvents;
@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.example.hp.myapplication1.Statistics.AppInformation.bootTime;
+import static com.example.hp.myapplication1.Chart.AppInformation.bootTime;
 
 public class StatisticsInfo {
 

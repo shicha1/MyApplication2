@@ -24,7 +24,7 @@ public class AppUsageInfo implements ListItemsManager{
     public List<Map<String ,Object>> getItemList(List<Map<String ,Object>> mapList){
         mapList.clear();
         UseTimeDataManager mUseTimeDataManager  = UseTimeDataManager.getInstance(act);
-        mUseTimeDataManager.refreshData(recentDays);
+        mUseTimeDataManager.refreshData2(recentDays);
         List<UsagePOJO> usagePOJOS = mUseTimeDataManager.getmPackageInfoListOrderByTime();
         for (int i = 0; i < usagePOJOS.size(); i++) {
             Map<String,Object> map = new HashMap<>();
