@@ -1,6 +1,8 @@
 package com.example.hp.myapplication1.info;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+
 import com.example.hp.myapplication1.R;
 import com.example.hp.myapplication1.db.DbHelper;
 import java.util.List;
@@ -40,5 +42,16 @@ public class AllUserInfo implements ListItemsManager{
     @Override
     public int[] dataTo(){
         return new int[]{R.id.list_item_user_id,R.id.list_item_user_pwd,R.id.list_item_user_type};
+    }
+
+    @Override
+    public void itemOnClicked(List<Map<String,Object>> listItems, long id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.act);
+//        builder.setIcon((Drawable) listItems.get((int)id).get("imageID"));
+        builder.setTitle((String)listItems.get((int)id).get(dataFrom()[0]));
+        builder.setMessage("密码："+listItems.get((int)id).get(dataFrom()[1])+
+                "\n用户类型（1是学生，2是管理员）："+listItems.get((int)id).get(dataFrom()[2]));
+        builder.setPositiveButton("确定", null);
+        builder.show();
     }
 }

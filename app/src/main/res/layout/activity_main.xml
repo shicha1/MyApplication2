@@ -188,7 +188,7 @@
 
                 android:text="登录"
 
-                android:textColor="@color/text_selector"
+                android:textColor="@drawable/text_selector"
 
                 android:textSize="18sp"
 
@@ -206,7 +206,7 @@
 
                 android:text="注册"
 
-                android:textColor="@color/text_selector"
+                android:textColor="@drawable/text_selector"
 
                 android:textSize="18sp"
 

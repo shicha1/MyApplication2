@@ -127,6 +127,7 @@ public class UseTimeDataManager {
             //屏蔽系统应用
             if (!isSystemApp(mContext,mStatsList.get(i).getPackageName())) {
                 UsagePOJO info = new UsagePOJO(0, calculateUseTime(mStatsList.get(i).getPackageName()), mStatsList.get(i).getPackageName(), getApplicationNameByPackageName(mContext, mStatsList.get(i).getPackageName()));
+                info.setLastRun(mStatsList.get(i).getLastTimeUsed());
                 mUsagePOJOList.add(info);
             }
         }
@@ -139,8 +140,6 @@ public class UseTimeDataManager {
                         mUsagePOJOList.get(n).setFirstRun(mOneTimeDetailList.get(m).getOneTimeDetailEventList().get(0).getTimeStamp());
                     }
                     mUsagePOJOList.get(n).addCount();
-                    mUsagePOJOList.get(n).setLastRun(mOneTimeDetailList.get(m).getOneTimeDetailEventList()
-                            .get(mOneTimeDetailList.get(m).getOneTimeDetailEventList().size()-1).getTimeStamp());
                 }
             }
         }
@@ -495,5 +494,9 @@ public class UseTimeDataManager {
 
     public List<UsageEvents.Event> getmEventListChecked() {
         return mEventListChecked;
+    }
+
+    public List<UsagePOJO> getmUsagePOJOList() {
+        return mUsagePOJOList;
     }
 }

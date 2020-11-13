@@ -137,7 +137,11 @@ public class DbHelper extends SQLiteOpenHelper {
         while (cur.moveToNext()){
             Map<String,Object> map = new HashMap<>();
             map.put(TBL_NAME2_COL1,cur.getString(cur.getColumnIndex(TBL_NAME2_COL1)));
-            map.put(TBL_NAME2_COL2, DateTransUtils.stampToDate(cur.getString(cur.getColumnIndex(TBL_NAME2_COL2))));
+            if(cur.getString(cur.getColumnIndex(TBL_NAME2_COL2)).equals("0")){
+                map.put(TBL_NAME2_COL2,"未记录");
+            }else{
+                map.put(TBL_NAME2_COL2, DateTransUtils.stampToDate(cur.getString(cur.getColumnIndex(TBL_NAME2_COL2))));
+            }
             map.put(TBL_NAME2_COL3,DateTransUtils.stampToDate(cur.getString(cur.getColumnIndex(TBL_NAME2_COL3))));
             mapList.add(map);
         }

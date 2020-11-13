@@ -1,6 +1,7 @@
 package com.example.hp.myapplication1.info;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 
 import com.example.hp.myapplication1.R;
 import com.example.hp.myapplication1.Utils.DateTransUtils;
@@ -28,6 +29,8 @@ public class AppUsageInfo implements ListItemsManager{
         List<UsagePOJO> usagePOJOS = mUseTimeDataManager.getmPackageInfoListOrderByTime();
         for (int i = 0; i < usagePOJOS.size(); i++) {
             Map<String,Object> map = new HashMap<>();
+            if(usagePOJOS.get(i).getmUsedCount()<1)
+                continue;
             map.put("count", "移到前台"+usagePOJOS.get(i).getmUsedCount()+"次");
             map.put("PackageName", usagePOJOS.get(i).getmPackageName());
             map.put("time", DateTransUtils.timeToHMS(usagePOJOS.get(i).getmUsedTime()));
@@ -60,5 +63,17 @@ public class AppUsageInfo implements ListItemsManager{
         R.id.list_item_usage_time,
         R.id.list_item_usage_package_name,
         };
+    }
+
+    @Override
+    public void itemOnClicked(List<Map<String,Object>> listItems, long id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.act);
+//        builder.setIcon((Drawable) listItems.get((int)id).get("imageID"));
+        builder.setTitle((String)listItems.get((int)id).get(dataFrom()[0]));
+        builder.setMessage("使用次数："+listItems.get((int)id).get(dataFrom()[1])+
+                "\n运行时间："+listItems.get((int)id).get(dataFrom()[2])+
+                "\n包名："+listItems.get((int)id).get(dataFrom()[3]));
+        builder.setPositiveButton("确定", null);
+        builder.show();
     }
 }

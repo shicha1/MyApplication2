@@ -1,7 +1,6 @@
 package com.example.hp.myapplication1.NotUsed;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -39,7 +38,6 @@ import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
 
-import com.example.hp.myapplication1.Chart.DemoBase;
 import com.example.hp.myapplication1.Chart.XYMarkerView;
 import com.example.hp.myapplication1.Chart.AppInformation;
 import com.example.hp.myapplication1.Chart.StatisticsInfo;

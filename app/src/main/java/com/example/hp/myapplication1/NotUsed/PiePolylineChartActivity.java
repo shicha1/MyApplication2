@@ -31,7 +31,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-import com.example.hp.myapplication1.Chart.DemoBase;
 import com.example.hp.myapplication1.Chart.AppInformation;
 import com.example.hp.myapplication1.Chart.StatisticsInfo;
 

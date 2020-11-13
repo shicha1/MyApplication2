@@ -3,9 +3,13 @@ import android.app.Activity;
 
 import java.util.HashMap;
 import java.util.List;
+
+import android.app.AlertDialog;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+
 import java.util.ArrayList;
 import java.util.Map;
 import com.example.hp.myapplication1.R;
@@ -60,5 +64,15 @@ public class AppInstalledInfo implements ListItemsManager{
     public List<Map<String, Object>> itemListUpdate(List<Map<String, Object>> mapList) {
         getItemList(mapList);
         return mapList;
+    }
+
+    @Override
+    public void itemOnClicked(List<Map<String,Object>> listItems, long id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.act);
+        builder.setIcon((Drawable) listItems.get((int)id).get("imageID"));
+        builder.setTitle((String)listItems.get((int)id).get("info"));
+//        builder.setMessage("您确定要切换账号吗？");
+        builder.setPositiveButton("确定", null);
+        builder.show();
     }
 }

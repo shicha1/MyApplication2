@@ -3,7 +3,6 @@ package com.example.hp.myapplication1.fragment;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -20,6 +19,7 @@ import com.example.hp.myapplication1.info.AppUsageFLRunInfo;
 import com.example.hp.myapplication1.info.AppUsageInfo;
 import com.example.hp.myapplication1.info.AppUsageQueueInfo;
 import com.example.hp.myapplication1.info.ListItemsManager;
+import com.example.hp.myapplication1.service.GetPredict;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,18 +32,22 @@ public class MyDropDownListView {
     private final DropDownListView              listView;
     private ListItemsManager                    listItemsManager;
     private final List<Map<String,Object>>      listItems = new ArrayList<>();
+    private final List<Map<String,Object>>      listItems_all = new ArrayList<>();
     private  SimpleAdapter                      adapter;
-    public Integer                              MORE_DATA_MAX_COUNT = 0;
-    public Integer                              moreDataCount       = 0;
+    public Integer                              MAX = 0;
+    public Integer                              Current = 20;
+    public Integer                              Load = 20;
+    private String                              style;
 
     public MyDropDownListView(Activity act, ListView myListView, String flag, int recentDays){
         this.act = act;
+        this.style = flag;
         listView = (DropDownListView)myListView;
         //show different fragment here
         int layout_id;
         TextView tv = this.act.findViewById(R.id.fragment_label);
 //        Log.e("day", String.valueOf(recentDays));
-        switch (flag){
+        switch (this.style){
             case ContentFragment.FIRST:
                 listItemsManager = new AppInstalledInfo(this.act);
                 layout_id = R.layout.list_app_install;
@@ -73,7 +77,17 @@ public class MyDropDownListView {
                 tv.setText(" ");
                 return;
         }
-        listItemsManager.getItemList(listItems);
+//        listItemsManager.getItemList(listItems);
+        listItemsManager.getItemList(listItems_all);
+        if(listItems_all.size()<Current){
+            listItems.addAll(listItems_all);
+        }
+        else {
+            for(int i=0;i<Current;i++){
+                listItems.add(listItems_all.get(i));
+            }
+        }
+        MAX = listItems_all.size();
         adapter = new SimpleAdapter(
                 this.act,
                 listItems,
@@ -99,7 +113,7 @@ public class MyDropDownListView {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ToastUtils.show(MyDropDownListView.this.act, R.string.drop_down_tip);
+                listItemsManager.itemOnClicked(listItems,id);
             }
         });
         listView.setShowFooterWhenNoMore(true);
@@ -139,18 +153,23 @@ public class MyDropDownListView {
 
         @Override
         protected void onPostExecute(String result) {
-
+            if(MyDropDownListView.this.style.equals(ContentFragment.THIRD)){
+                GetPredict.doTrain(MyDropDownListView.this.act);
+            }
             if (isDropDown) {
                 listItemsManager.itemListUpdate(listItems);
                 adapter.notifyDataSetChanged();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd HH:mm:ss");
                 listView.onDropDownComplete(act.getString(R.string.update_at) + dateFormat.format(new Date()));
             } else {
-                moreDataCount++;
 //                listItems.add("Added after on bottom");
+                for(int i=Current;i<MAX&&i<Current+Load;i++){
+                    listItems.add(listItems_all.get(i));
+                }
+                Current +=Load;
                 adapter.notifyDataSetChanged();
 
-                if (moreDataCount >= MORE_DATA_MAX_COUNT) {
+                if (Current >= MAX) {
                     listView.setHasMore(false);
                 }
                 listView.onBottomComplete();

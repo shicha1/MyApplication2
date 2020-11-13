@@ -1,6 +1,8 @@
 package com.example.hp.myapplication1.info;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+
 import com.example.hp.myapplication1.R;
 import com.example.hp.myapplication1.db.DbHelper;
 import java.util.List;
@@ -41,5 +43,15 @@ public class AppUsageFLRunInfo implements ListItemsManager {
                 R.id.list_item_usage_count,
                 R.id.list_item_usage_time,
         };
+    }
+
+    @Override
+    public void itemOnClicked(List<Map<String,Object>> listItems, long id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.act);
+        builder.setTitle((String)listItems.get((int)id).get(dataFrom()[0]));
+        builder.setMessage("可知最早启动时间："+listItems.get((int)id).get(dataFrom()[1])+
+                "\n最后一次运行时间："+listItems.get((int)id).get(dataFrom()[2]));
+        builder.setPositiveButton("确定", null);
+        builder.show();
     }
 }

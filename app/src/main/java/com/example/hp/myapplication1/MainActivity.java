@@ -57,7 +57,6 @@ public class MainActivity extends Activity {
                 startActivity(in);
             }
         }
-        GetPredict.doTrain(this);
     }
 
     private class Login_btn_listener implements View.OnClickListener{

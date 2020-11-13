@@ -13,4 +13,6 @@ public interface ListItemsManager {
     public String[] dataFrom();
 
     public int[] dataTo();
+
+    public void itemOnClicked(List<Map<String,Object>> listItems, long id);
 }

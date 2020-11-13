@@ -1,7 +1,9 @@
 package com.example.hp.myapplication1.info;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.usage.UsageEvents;
+import android.graphics.drawable.Drawable;
 
 import com.example.hp.myapplication1.R;
 import com.example.hp.myapplication1.Utils.DateTransUtils;
@@ -54,5 +56,14 @@ public class AppUsageQueueInfo implements ListItemsManager{
     @Override
     public int[] dataTo(){
         return new int[]{R.id.list_item_install_image,R.id.list_item_install_name,R.id.list_item_install_openTime};
+    }
+
+    public void itemOnClicked(List<Map<String,Object>> listItems, long id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.act);
+        builder.setIcon((Drawable) listItems.get((int)id).get(dataFrom()[0]));
+        builder.setTitle((String)listItems.get((int)id).get(dataFrom()[1]));
+        builder.setMessage("启动时间："+listItems.get((int)id).get(dataFrom()[2]));
+        builder.setPositiveButton("确定", null);
+        builder.show();
     }
 }
