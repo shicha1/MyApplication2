@@ -18,8 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.hp.myapplication1.Chart.AppInformation;
-import com.example.hp.myapplication1.Chart.StatisticsInfo;
+import com.example.hp.myapplication1.Utils.Chart.AppInformation;
+import com.example.hp.myapplication1.Utils.Chart.StatisticsInfo;
 import com.example.hp.myapplication1.R;
 
 

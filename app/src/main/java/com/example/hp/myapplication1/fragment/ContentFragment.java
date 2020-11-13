@@ -25,10 +25,10 @@ import android.widget.TextView;
 
 import yalantis.com.sidemenu.interfaces.ScreenShotable;
 
-import com.example.hp.myapplication1.Chart.XYMarkerView;
+import com.example.hp.myapplication1.Utils.Chart.XYMarkerView;
 import com.example.hp.myapplication1.R;
-import com.example.hp.myapplication1.Chart.AppInformation;
-import com.example.hp.myapplication1.Chart.StatisticsInfo;
+import com.example.hp.myapplication1.Utils.Chart.AppInformation;
+import com.example.hp.myapplication1.Utils.Chart.StatisticsInfo;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;

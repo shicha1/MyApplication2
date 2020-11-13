@@ -1,4 +1,4 @@
-package com.example.hp.myapplication1.Chart;
+package com.example.hp.myapplication1.Utils.Chart;
 
 import android.content.Context;
 import android.widget.TextView;
