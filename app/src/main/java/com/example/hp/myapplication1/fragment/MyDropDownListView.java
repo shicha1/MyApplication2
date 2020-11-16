@@ -38,8 +38,10 @@ public class MyDropDownListView {
     public Integer                              Current = 20;
     public Integer                              Load = 20;
     private String                              style;
+    private int                                 day;
 
     public MyDropDownListView(Activity act, ListView myListView, String flag, int recentDays){
+        this.day = recentDays;
         this.act = act;
         this.style = flag;
         listView = (DropDownListView)myListView;
@@ -154,7 +156,11 @@ public class MyDropDownListView {
         @Override
         protected void onPostExecute(String result) {
             if(MyDropDownListView.this.style.equals(ContentFragment.THIRD)){
-                GetPredict.doTrain(MyDropDownListView.this.act);
+                if(day==30){
+                    GetPredict.doTrain(MyDropDownListView.this.act);
+                }else {
+                    GetPredict.getPredict(MyDropDownListView.this.act);
+                }
             }
             if (isDropDown) {
                 listItemsManager.itemListUpdate(listItems);

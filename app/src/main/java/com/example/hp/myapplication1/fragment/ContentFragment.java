@@ -162,6 +162,8 @@ public class ContentFragment extends Fragment implements ScreenShotable, SeekBar
                             return "其他应用";
                         else {
                             String str = ShowList.get(i).getLabel();
+                            if(str==null)
+                                return "";
                             if (str.length() <= 4)
                                 return str;
                             else return (str.substring(0, 3) + "..");

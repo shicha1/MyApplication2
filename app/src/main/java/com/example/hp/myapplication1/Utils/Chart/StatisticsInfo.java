@@ -6,6 +6,9 @@ import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
+
+import com.example.hp.myapplication1.Utils.DateTransUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -77,7 +80,8 @@ public class StatisticsInfo {
             long now = calendar.getTimeInMillis();
             long begintime = getBeginTime();
             if (style == DAY) {
-                this.result = m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, begintime, now);
+                Log.e("starttime", DateTransUtils.stampToDate(begintime));
+                this.result = m.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, begintime, now);
                 AppInfoList = getAccurateDailyStatsList(context, result, m, begintime, now);
             } else {
                 if (style == WEEK)

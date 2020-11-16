@@ -10,16 +10,13 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.util.Log;
 
 
 import com.example.hp.myapplication1.db.UsagePOJO;
 
 import java.lang.reflect.Field;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**

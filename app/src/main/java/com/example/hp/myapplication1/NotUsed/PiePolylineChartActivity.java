@@ -31,8 +31,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-import com.example.hp.myapplication1.Chart.AppInformation;
-import com.example.hp.myapplication1.Chart.StatisticsInfo;
+import com.example.hp.myapplication1.Utils.Chart.AppInformation;
+import com.example.hp.myapplication1.Utils.Chart.StatisticsInfo;
 
 public class PiePolylineChartActivity extends DemoBase implements OnChartValueSelectedListener {
 

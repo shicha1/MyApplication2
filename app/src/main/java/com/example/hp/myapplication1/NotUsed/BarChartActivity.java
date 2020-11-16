@@ -38,9 +38,9 @@ import com.github.mikephil.charting.utils.MPPointF;
 
 import java.util.ArrayList;
 
-import com.example.hp.myapplication1.Chart.XYMarkerView;
-import com.example.hp.myapplication1.Chart.AppInformation;
-import com.example.hp.myapplication1.Chart.StatisticsInfo;
+import com.example.hp.myapplication1.Utils.Chart.XYMarkerView;
+import com.example.hp.myapplication1.Utils.Chart.AppInformation;
+import com.example.hp.myapplication1.Utils.Chart.StatisticsInfo;
 
 public class BarChartActivity extends DemoBase implements OnSeekBarChangeListener,
         OnChartValueSelectedListener {
