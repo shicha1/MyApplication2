@@ -158,7 +158,10 @@ public class MyDropDownListView {
             if(MyDropDownListView.this.style.equals(ContentFragment.THIRD)){
                 if(day==30){
                     GetPredict.doTrain(MyDropDownListView.this.act);
-                }else {
+                }else if(day == 29){
+                    ToastUtils.show(MyDropDownListView.this.act,"安卓实验");
+                }
+                else {
                     GetPredict.getPredict(MyDropDownListView.this.act);
                 }
             }
