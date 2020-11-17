@@ -155,17 +155,17 @@ public class MyDropDownListView {
 
         @Override
         protected void onPostExecute(String result) {
-            if(MyDropDownListView.this.style.equals(ContentFragment.THIRD)){
-                if(day==30){
-                    GetPredict.doTrain(MyDropDownListView.this.act);
-                }else if(day == 5){
-                    ToastUtils.show(MyDropDownListView.this.act,"安卓实验");
-                }
-                else {
-                    GetPredict.getPredict(MyDropDownListView.this.act);
-                }
-            }
             if (isDropDown) {
+                if(MyDropDownListView.this.style.equals(ContentFragment.THIRD)){
+                    if(day==30){
+                        GetPredict.doTrain(MyDropDownListView.this.act);
+                    }else if(day == 5){
+                        ToastUtils.show(MyDropDownListView.this.act,"安卓实验");
+                    }
+                    else {
+                        GetPredict.getPredict(MyDropDownListView.this.act);
+                    }
+                }
                 listItemsManager.itemListUpdate(listItems);
                 adapter.notifyDataSetChanged();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd HH:mm:ss");
