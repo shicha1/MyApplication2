@@ -24,10 +24,10 @@ import java.util.List;
 import java.util.Map;
 
 public class GetPredict {
-//    private String url = "http://10.0.2.2:8000/mysite/getPredict?username=1&password=2&data=";
-//    private String urltrain = "http://10.0.2.2:8000/mysite/postTrain";
-    private String url = "http://192.168.137.1:8000/mysite/getPredict?username=1&password=2&putData=[1,%2223%22,3,4,5]&data=";
-    private String urltrain = "http://192.168.137.1:8000/mysite/postTrain";
+    private String url = "http://10.0.2.2:8000/mysite/getPredict?username=1&password=2&data=";
+    private String urltrain = "http://10.0.2.2:8000/mysite/postTrain";
+//    private String url = "http://192.168.137.1:8000/mysite/getPredict?username=1&password=2&putData=[1,%2223%22,3,4,5]&data=";
+//    private String urltrain = "http://192.168.137.1:8000/mysite/postTrain";
 
     private void predict(Context context){
         HttpURLConnection connection = null;
